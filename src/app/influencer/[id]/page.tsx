@@ -132,7 +132,7 @@ export default function InfluencerStorePage() {
   return (
     <div className="min-h-screen bg-[#f9f9f7]">
       {/* Cover with Parallax */}
-      <div ref={bannerRef} className="relative h-48 sm:h-64 lg:h-80 overflow-hidden profile-banner-parallax">
+      <div ref={bannerRef} className="relative h-48 sm:h-64 lg:h-80 overflow-hidden profile-banner-parallax z-0">
         <div
           className="absolute inset-0 profile-banner-image"
           style={{ transform: `translateY(${scrollY * 0.3}px)` }}
@@ -149,11 +149,11 @@ export default function InfluencerStorePage() {
       </div>
 
       {/* Profile */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="relative -mt-16 sm:-mt-20 mb-6">
           <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-6">
             {/* Avatar with ring and entrance animation */}
-            <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden profile-avatar-ring profile-avatar-animate relative flex-shrink-0">
+            <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden profile-avatar-ring profile-avatar-animate relative flex-shrink-0 z-20 isolate">
               <Image
                 src={influencer.profileImage}
                 alt={influencer.name}
