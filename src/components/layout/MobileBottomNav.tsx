@@ -49,7 +49,7 @@ export default function MobileBottomNav() {
   const { totalItems } = useCart();
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-100 pb-[env(safe-area-inset-bottom)]">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#e8e4de] pb-[env(safe-area-inset-bottom)]">
       <div className="flex items-center justify-around h-16">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
@@ -58,12 +58,12 @@ export default function MobileBottomNav() {
               key={item.label}
               href={item.href}
               className={`flex flex-col items-center gap-0.5 px-3 py-1 relative ${
-                isActive ? "text-[#2D8B75]" : "text-[#888888]"
+                isActive ? "text-[#3d7a5f]" : "text-[#6b6b6b]"
               }`}
             >
               {item.icon}
               {item.badge && totalItems > 0 && (
-                <span className="absolute -top-0.5 right-1 bg-[#2D8B75] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="absolute -top-0.5 right-1 bg-[#3d7a5f] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                   {totalItems}
                 </span>
               )}

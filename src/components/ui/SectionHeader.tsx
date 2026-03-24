@@ -11,11 +11,14 @@ export default function SectionHeader({ title, subtitle, href, linkText = "View 
   return (
     <div className="flex items-end justify-between mb-6 sm:mb-8">
       <div>
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#222222]">{title}</h2>
-        {subtitle && <p className="text-[#888888] mt-1 text-sm sm:text-base">{subtitle}</p>}
+        <h2 className="text-h2 text-[#1a1a1a]">{title}</h2>
+        {subtitle && <p className="text-[#6b6b6b] mt-2 text-sm sm:text-base">{subtitle}</p>}
       </div>
       {href && (
-        <Link href={href} className="text-[#2D8B75] text-sm font-semibold hover:underline flex-shrink-0">
+        <Link
+          href={href}
+          className="view-all-link text-[#3d7a5f] text-sm font-semibold flex-shrink-0 relative"
+        >
           {linkText} →
         </Link>
       )}

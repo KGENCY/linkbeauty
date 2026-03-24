@@ -33,7 +33,7 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
         )}
         <h3 className="text-white font-bold text-lg">{collection.title}</h3>
         <p className="text-white/70 text-sm mt-1">{collection.description}</p>
-        <span className="inline-block mt-3 text-xs text-white/90 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full font-medium">
+        <span className="text-label inline-block mt-3 text-white/90 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full normal-case tracking-normal">
           {collection.productIds.length} products →
         </span>
       </div>

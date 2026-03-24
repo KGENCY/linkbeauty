@@ -21,8 +21,8 @@ export default function ProductDetailPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-[#222222]">Product not found</h1>
-          <Link href="/discover" className="text-[#2D8B75] mt-4 inline-block hover:underline">
+          <h1 className="text-h2 text-[#1a1a1a]">Product not found</h1>
+          <Link href="/discover" className="text-[#3d7a5f] mt-4 inline-block hover:underline">
             Browse creators →
           </Link>
         </div>
@@ -46,21 +46,21 @@ export default function ProductDetailPage() {
     <div className="min-h-screen bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-sm text-[#888888] mb-6">
-          <Link href="/" className="hover:text-[#2D8B75]">Home</Link>
+        <div className="flex items-center gap-2 text-sm text-[#6b6b6b] mb-6">
+          <Link href="/" className="hover:text-[#3d7a5f]">Home</Link>
           <span>/</span>
           {influencer && (
             <>
-              <Link href={`/influencer/${influencer.id}`} className="hover:text-[#2D8B75]">{influencer.name}&apos;s Store</Link>
+              <Link href={`/influencer/${influencer.id}`} className="hover:text-[#3d7a5f]">{influencer.name}&apos;s Store</Link>
               <span>/</span>
             </>
           )}
-          <span className="text-[#222222]">{product.name}</span>
+          <span className="text-[#1a1a1a]">{product.name}</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Image */}
-          <div className="relative aspect-square rounded-3xl overflow-hidden bg-[#FAFAFA]">
+          <div className="relative aspect-square rounded-3xl overflow-hidden bg-[#f9f9f7]">
             <Image
               src={product.image}
               alt={product.name}
@@ -70,7 +70,7 @@ export default function ProductDetailPage() {
               priority
             />
             {discount > 0 && (
-              <span className="absolute top-4 left-4 bg-[#2D8B75] text-white text-sm font-bold px-3 py-1.5 rounded-full">
+              <span className="absolute top-4 left-4 bg-[#3d7a5f] text-white text-sm font-bold px-3 py-1.5 rounded-full">
                 -{discount}%
               </span>
             )}
@@ -80,7 +80,7 @@ export default function ProductDetailPage() {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className={`h-6 w-6 ${wishlisted ? "text-[#2D8B75] fill-[#2D8B75]" : "text-[#888888]"}`}
+                className={`h-6 w-6 ${wishlisted ? "text-[#3d7a5f] fill-[#3d7a5f]" : "text-[#6b6b6b]"}`}
                 fill={wishlisted ? "currentColor" : "none"}
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -95,84 +95,84 @@ export default function ProductDetailPage() {
           <div>
             {/* Recommended by */}
             {influencer && (
-              <Link href={`/influencer/${influencer.id}`} className="inline-flex items-center gap-2 bg-[#EFF7F4] rounded-full px-4 py-2 mb-4 hover:bg-[#fce0e4] transition-colors">
+              <Link href={`/influencer/${influencer.id}`} className="inline-flex items-center gap-2 bg-[#3d7a5f]/10 rounded-full px-4 py-2 mb-4 hover:bg-[#3d7a5f]/20 transition-colors">
                 <div className="relative w-6 h-6 rounded-full overflow-hidden">
                   <Image src={influencer.profileImage} alt={influencer.name} fill className="object-cover" sizes="24px" />
                 </div>
-                <span className="text-sm font-medium text-[#2D8B75]">Recommended by {influencer.name} {influencer.flag}</span>
+                <span className="text-sm font-medium text-[#3d7a5f]">Recommended by {influencer.name} {influencer.flag}</span>
               </Link>
             )}
 
-            <p className="text-sm text-[#888888] uppercase tracking-wide">{product.brand}</p>
-            <h1 className="text-2xl sm:text-3xl font-bold text-[#222222] mt-1">{product.name}</h1>
+            <p className="text-label text-[#6b6b6b]">{product.brand}</p>
+            <h1 className="text-h2 text-[#1a1a1a] mt-1">{product.name}</h1>
 
             {/* Rating */}
             <div className="flex items-center gap-2 mt-3">
               <div className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
-                  <svg key={i} xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 ${i < Math.floor(product.rating) ? "text-amber-400 fill-amber-400" : "text-gray-200 fill-gray-200"}`} viewBox="0 0 24 24">
+                  <svg key={i} xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 ${i < Math.floor(product.rating) ? "text-amber-400 fill-amber-400" : "text-[#e8e4de] fill-[#e8e4de]"}`} viewBox="0 0 24 24">
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
                 ))}
               </div>
-              <span className="text-sm text-[#888888]">{product.rating} ({product.reviewCount} reviews)</span>
+              <span className="text-sm text-[#6b6b6b]">{product.rating} ({product.reviewCount} reviews)</span>
             </div>
 
             {/* Price */}
             <div className="flex items-center gap-3 mt-4">
-              <span className="text-3xl font-bold text-[#222222]">${product.price.toFixed(2)}</span>
+              <span className="text-3xl font-bold text-[#1a1a1a]">${product.price.toFixed(2)}</span>
               {product.originalPrice && (
-                <span className="text-lg text-[#888888] line-through">${product.originalPrice.toFixed(2)}</span>
+                <span className="text-lg text-[#6b6b6b] line-through">${product.originalPrice.toFixed(2)}</span>
               )}
             </div>
 
             {/* Why I Love This */}
             {product.whyILoveThis && (
-              <div className="mt-6 bg-[#EFF7F4]/50 rounded-2xl p-5">
+              <div className="mt-6 bg-[#3d7a5f]/5 rounded-2xl p-5 border border-[#3d7a5f]/10">
                 <div className="flex items-center gap-2 mb-2">
                   {influencer && (
                     <div className="relative w-5 h-5 rounded-full overflow-hidden">
                       <Image src={influencer.profileImage} alt={influencer.name} fill className="object-cover" sizes="20px" />
                     </div>
                   )}
-                  <span className="text-sm font-semibold text-[#2D8B75]">Why I Love This</span>
+                  <span className="text-sm font-semibold text-[#3d7a5f]">Why I Love This</span>
                 </div>
-                <p className="text-sm text-[#222222] leading-relaxed italic">&ldquo;{product.whyILoveThis}&rdquo;</p>
+                <p className="text-sm text-[#1a1a1a] leading-relaxed italic">&ldquo;{product.whyILoveThis}&rdquo;</p>
               </div>
             )}
 
             {/* Quantity & Add to Cart */}
             <div className="mt-8 flex items-center gap-4">
-              <div className="flex items-center border border-gray-200 rounded-full">
+              <div className="flex items-center border border-[#e8e4de] rounded-full">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-11 h-11 flex items-center justify-center text-[#222222] hover:bg-gray-50 rounded-l-full transition-colors"
+                  className="w-11 h-11 flex items-center justify-center text-[#1a1a1a] hover:bg-[#f9f9f7] rounded-l-full transition-colors"
                 >
                   -
                 </button>
-                <span className="w-10 text-center font-semibold text-[#222222]">{quantity}</span>
+                <span className="w-10 text-center font-semibold text-[#1a1a1a]">{quantity}</span>
                 <button
                   onClick={() => setQuantity(quantity + 1)}
-                  className="w-11 h-11 flex items-center justify-center text-[#222222] hover:bg-gray-50 rounded-r-full transition-colors"
+                  className="w-11 h-11 flex items-center justify-center text-[#1a1a1a] hover:bg-[#f9f9f7] rounded-r-full transition-colors"
                 >
                   +
                 </button>
               </div>
               <button
                 onClick={handleAddToCart}
-                className="flex-1 bg-[#2D8B75] text-white py-4 rounded-full font-semibold text-lg hover:bg-[#247A65] transition-colors shadow-lg shadow-[#2D8B75]/25"
+                className="flex-1 bg-[#3d7a5f] text-white py-4 rounded-full font-semibold text-lg hover:bg-[#356b53] transition-colors shadow-lg shadow-[#3d7a5f]/25"
               >
                 Add to Bag — ${(product.price * quantity).toFixed(2)}
               </button>
             </div>
 
-            <p className="text-xs text-[#888888] mt-3 text-center">Free shipping on orders over $50</p>
+            <p className="text-xs text-[#6b6b6b] mt-3 text-center">Free shipping on orders over $50</p>
           </div>
         </div>
 
         {/* Detail Tabs */}
-        <div className="mt-12 border-t border-gray-100 pt-8">
-          <div className="flex gap-6 border-b border-gray-200 mb-6">
+        <div className="mt-12 border-t border-[#e8e4de] pt-8">
+          <div className="flex gap-6 border-b border-[#e8e4de] mb-6">
             {([
               { key: "description", label: "Description" },
               { key: "how", label: "How to Use" },
@@ -183,47 +183,47 @@ export default function ProductDetailPage() {
                 onClick={() => setActiveSection(tab.key)}
                 className={`pb-3 text-sm font-semibold transition-colors relative ${
                   activeSection === tab.key
-                    ? "text-[#2D8B75]"
-                    : "text-[#888888] hover:text-[#222222]"
+                    ? "text-[#3d7a5f]"
+                    : "text-[#6b6b6b] hover:text-[#1a1a1a]"
                 }`}
               >
                 {tab.label}
                 {activeSection === tab.key && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2D8B75] rounded-full" />
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#3d7a5f] rounded-full" />
                 )}
               </button>
             ))}
           </div>
 
           {activeSection === "description" && (
-            <p className="text-[#222222] leading-relaxed max-w-2xl">{product.description}</p>
+            <p className="text-[#1a1a1a] leading-relaxed max-w-2xl">{product.description}</p>
           )}
 
           {activeSection === "how" && (
-            <p className="text-[#222222] leading-relaxed max-w-2xl">{product.howToUse}</p>
+            <p className="text-[#1a1a1a] leading-relaxed max-w-2xl">{product.howToUse}</p>
           )}
 
           {activeSection === "reviews" && (
             <div className="space-y-4 max-w-2xl">
               {reviews.map((review) => (
-                <div key={review.id} className="bg-[#FAFAFA] rounded-2xl p-5">
+                <div key={review.id} className="bg-[#f9f9f7] rounded-2xl p-5 border border-[#e8e4de]">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
-                      <span className="font-semibold text-sm text-[#222222]">{review.userName}</span>
+                      <span className="font-semibold text-sm text-[#1a1a1a]">{review.userName}</span>
                       {review.verified && (
-                        <span className="text-xs bg-green-50 text-green-600 px-2 py-0.5 rounded-full">Verified</span>
+                        <span className="text-label bg-[#3d7a5f]/10 text-[#3d7a5f] px-2 py-0.5 rounded-full normal-case tracking-normal">Verified</span>
                       )}
                     </div>
-                    <span className="text-xs text-[#888888]">{review.date}</span>
+                    <span className="text-xs text-[#6b6b6b]">{review.date}</span>
                   </div>
                   <div className="flex gap-0.5 mb-2">
                     {[...Array(5)].map((_, i) => (
-                      <svg key={i} xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 ${i < review.rating ? "text-amber-400 fill-amber-400" : "text-gray-200 fill-gray-200"}`} viewBox="0 0 24 24">
+                      <svg key={i} xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 ${i < review.rating ? "text-amber-400 fill-amber-400" : "text-[#e8e4de] fill-[#e8e4de]"}`} viewBox="0 0 24 24">
                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                       </svg>
                     ))}
                   </div>
-                  <p className="text-sm text-[#222222]">{review.comment}</p>
+                  <p className="text-sm text-[#1a1a1a]">{review.comment}</p>
                 </div>
               ))}
             </div>
@@ -233,7 +233,7 @@ export default function ProductDetailPage() {
         {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div className="mt-16">
-            <h2 className="text-2xl font-bold text-[#222222] mb-6">
+            <h2 className="text-h2 text-[#1a1a1a] mb-6">
               More from {influencer?.name}
             </h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -246,10 +246,10 @@ export default function ProductDetailPage() {
       </div>
 
       {/* Sticky Buy Button (Mobile) */}
-      <div className="lg:hidden fixed bottom-16 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-gray-100 z-40 md:bottom-0">
+      <div className="lg:hidden fixed bottom-16 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-[#e8e4de] z-40 md:bottom-0">
         <button
           onClick={handleAddToCart}
-          className="w-full bg-[#2D8B75] text-white py-4 rounded-full font-semibold text-lg hover:bg-[#247A65] transition-colors shadow-lg"
+          className="w-full bg-[#3d7a5f] text-white py-4 rounded-full font-semibold text-lg hover:bg-[#356b53] transition-colors shadow-lg"
         >
           Add to Bag — ${product.price.toFixed(2)}
         </button>

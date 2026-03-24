@@ -22,18 +22,18 @@ export default function DiscoverPage() {
   });
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
+    <div className="min-h-screen bg-[#f9f9f7]">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#EFF7F4] to-white py-12 sm:py-16">
+      <div className="bg-gradient-to-br from-[#f0f7f4] to-white py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold text-[#222222]">Discover Creators</h1>
-          <p className="text-[#888888] mt-3 max-w-md mx-auto">
+          <h1 className="text-h1 text-[#1a1a1a]">Discover Creators</h1>
+          <p className="text-[#6b6b6b] mt-3 max-w-md mx-auto">
             Find your perfect beauty guide among our curated community of creators
           </p>
 
           {/* Search */}
           <div className="max-w-lg mx-auto mt-8 relative">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#888888] absolute left-4 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#6b6b6b] absolute left-4 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <input
@@ -41,7 +41,7 @@ export default function DiscoverPage() {
               placeholder="Search by name, country, or expertise..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 bg-white rounded-2xl border border-gray-100 focus:outline-none focus:ring-2 focus:ring-[#2D8B75]/30 focus:border-[#2D8B75] text-[#222222] placeholder:text-[#888888] shadow-sm"
+              className="w-full pl-12 pr-4 py-4 bg-white rounded-2xl border border-[#e8e4de] focus:outline-none focus:ring-2 focus:ring-[#3d7a5f]/30 focus:border-[#3d7a5f] text-[#1a1a1a] placeholder:text-[#6b6b6b] shadow-sm"
             />
           </div>
         </div>
@@ -56,8 +56,8 @@ export default function DiscoverPage() {
               onClick={() => setActiveCategory(cat)}
               className={`flex-shrink-0 px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
                 activeCategory === cat
-                  ? "bg-[#2D8B75] text-white shadow-sm"
-                  : "bg-white text-[#888888] hover:text-[#222222] hover:bg-gray-50 border border-gray-100"
+                  ? "bg-[#3d7a5f] text-white shadow-sm"
+                  : "bg-white text-[#6b6b6b] hover:text-[#1a1a1a] hover:bg-[#f9f9f7] border border-[#e8e4de]"
               }`}
             >
               {cat}
@@ -70,7 +70,7 @@ export default function DiscoverPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         {filtered.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-[#888888] text-lg">No creators found. Try a different search or filter.</p>
+            <p className="text-[#6b6b6b] text-lg">No creators found. Try a different search or filter.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -7,24 +7,24 @@ export default function SignupPage() {
   const [role, setRole] = useState<"shopper" | "creator">("shopper");
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#EFF7F4] via-white to-[#EFF7F4] flex items-center justify-center px-4 py-12">
-      <div className="bg-white rounded-3xl p-8 sm:p-10 max-w-md w-full shadow-sm">
+    <div className="min-h-screen bg-gradient-to-br from-[#f0f7f4] via-[#f9f9f7] to-[#f0f7f4] flex items-center justify-center px-4 py-12">
+      <div className="bg-white rounded-3xl p-8 sm:p-10 max-w-md w-full shadow-sm border border-[#e8e4de]">
         <div className="text-center mb-8">
-          <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-[#2D8B75] to-[#4DAE95] bg-clip-text text-transparent">
+          <Link href="/" className="font-display text-2xl font-bold bg-gradient-to-r from-[#3d7a5f] to-[#6aaa8e] bg-clip-text text-transparent">
             LINKBEAUTY
           </Link>
-          <h1 className="text-2xl font-bold text-[#222222] mt-4">Join LINKBEAUTY</h1>
-          <p className="text-[#888888] mt-2">Start your K-beauty journey today</p>
+          <h1 className="text-h2 text-[#1a1a1a] mt-4">Join LINKBEAUTY</h1>
+          <p className="text-[#6b6b6b] mt-2">Start your K-beauty journey today</p>
         </div>
 
         {/* Role Toggle */}
-        <div className="flex bg-[#FAFAFA] rounded-xl p-1 mb-6">
+        <div className="flex bg-[#f9f9f7] rounded-xl p-1 mb-6">
           <button
             onClick={() => setRole("shopper")}
             className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
               role === "shopper"
-                ? "bg-white text-[#2D8B75] shadow-sm"
-                : "text-[#888888]"
+                ? "bg-white text-[#3d7a5f] shadow-sm"
+                : "text-[#6b6b6b]"
             }`}
           >
             Shopper
@@ -33,8 +33,8 @@ export default function SignupPage() {
             onClick={() => setRole("creator")}
             className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
               role === "creator"
-                ? "bg-white text-[#2D8B75] shadow-sm"
-                : "text-[#888888]"
+                ? "bg-white text-[#3d7a5f] shadow-sm"
+                : "text-[#6b6b6b]"
             }`}
           >
             Creator
@@ -42,7 +42,7 @@ export default function SignupPage() {
         </div>
 
         <div className="space-y-4">
-          <button className="w-full flex items-center justify-center gap-3 bg-[#FAFAFA] py-3.5 rounded-xl border border-gray-100 hover:bg-gray-50 transition-colors font-medium text-[#222222]">
+          <button className="w-full flex items-center justify-center gap-3 bg-[#f9f9f7] py-3.5 rounded-xl border border-[#e8e4de] hover:bg-white transition-colors font-medium text-[#1a1a1a]">
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
               <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
@@ -53,32 +53,32 @@ export default function SignupPage() {
           </button>
 
           <div className="flex items-center gap-4">
-            <div className="flex-1 h-px bg-gray-100" />
-            <span className="text-xs text-[#888888]">or</span>
-            <div className="flex-1 h-px bg-gray-100" />
+            <div className="flex-1 h-px bg-[#e8e4de]" />
+            <span className="text-xs text-[#6b6b6b]">or</span>
+            <div className="flex-1 h-px bg-[#e8e4de]" />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <input
               type="text"
               placeholder="First name"
-              className="w-full px-4 py-3.5 bg-[#FAFAFA] rounded-xl border border-gray-100 focus:outline-none focus:ring-2 focus:ring-[#2D8B75]/30 focus:border-[#2D8B75] text-[#222222] placeholder:text-[#888888]"
+              className="w-full px-4 py-3.5 bg-[#f9f9f7] rounded-xl border border-[#e8e4de] focus:outline-none focus:ring-2 focus:ring-[#3d7a5f]/30 focus:border-[#3d7a5f] text-[#1a1a1a] placeholder:text-[#6b6b6b]"
             />
             <input
               type="text"
               placeholder="Last name"
-              className="w-full px-4 py-3.5 bg-[#FAFAFA] rounded-xl border border-gray-100 focus:outline-none focus:ring-2 focus:ring-[#2D8B75]/30 focus:border-[#2D8B75] text-[#222222] placeholder:text-[#888888]"
+              className="w-full px-4 py-3.5 bg-[#f9f9f7] rounded-xl border border-[#e8e4de] focus:outline-none focus:ring-2 focus:ring-[#3d7a5f]/30 focus:border-[#3d7a5f] text-[#1a1a1a] placeholder:text-[#6b6b6b]"
             />
           </div>
           <input
             type="email"
             placeholder="Email address"
-            className="w-full px-4 py-3.5 bg-[#FAFAFA] rounded-xl border border-gray-100 focus:outline-none focus:ring-2 focus:ring-[#2D8B75]/30 focus:border-[#2D8B75] text-[#222222] placeholder:text-[#888888]"
+            className="w-full px-4 py-3.5 bg-[#f9f9f7] rounded-xl border border-[#e8e4de] focus:outline-none focus:ring-2 focus:ring-[#3d7a5f]/30 focus:border-[#3d7a5f] text-[#1a1a1a] placeholder:text-[#6b6b6b]"
           />
           <input
             type="password"
             placeholder="Password"
-            className="w-full px-4 py-3.5 bg-[#FAFAFA] rounded-xl border border-gray-100 focus:outline-none focus:ring-2 focus:ring-[#2D8B75]/30 focus:border-[#2D8B75] text-[#222222] placeholder:text-[#888888]"
+            className="w-full px-4 py-3.5 bg-[#f9f9f7] rounded-xl border border-[#e8e4de] focus:outline-none focus:ring-2 focus:ring-[#3d7a5f]/30 focus:border-[#3d7a5f] text-[#1a1a1a] placeholder:text-[#6b6b6b]"
           />
 
           {role === "creator" && (
@@ -86,9 +86,9 @@ export default function SignupPage() {
               <input
                 type="text"
                 placeholder="Instagram / YouTube handle"
-                className="w-full px-4 py-3.5 bg-[#FAFAFA] rounded-xl border border-gray-100 focus:outline-none focus:ring-2 focus:ring-[#2D8B75]/30 focus:border-[#2D8B75] text-[#222222] placeholder:text-[#888888]"
+                className="w-full px-4 py-3.5 bg-[#f9f9f7] rounded-xl border border-[#e8e4de] focus:outline-none focus:ring-2 focus:ring-[#3d7a5f]/30 focus:border-[#3d7a5f] text-[#1a1a1a] placeholder:text-[#6b6b6b]"
               />
-              <select className="w-full px-4 py-3.5 bg-[#FAFAFA] rounded-xl border border-gray-100 focus:outline-none focus:ring-2 focus:ring-[#2D8B75]/30 focus:border-[#2D8B75] text-[#888888]">
+              <select className="w-full px-4 py-3.5 bg-[#f9f9f7] rounded-xl border border-[#e8e4de] focus:outline-none focus:ring-2 focus:ring-[#3d7a5f]/30 focus:border-[#3d7a5f] text-[#6b6b6b]">
                 <option>Nationality</option>
                 <option>United States</option>
                 <option>Japan</option>
@@ -101,14 +101,14 @@ export default function SignupPage() {
             </>
           )}
 
-          <button className="w-full bg-[#2D8B75] text-white py-4 rounded-xl font-semibold hover:bg-[#247A65] transition-colors shadow-lg shadow-[#2D8B75]/20">
+          <button className="w-full bg-[#3d7a5f] text-white py-4 rounded-xl font-semibold hover:bg-[#356b53] transition-colors shadow-lg shadow-[#3d7a5f]/20">
             {role === "creator" ? "Apply as Creator" : "Create Account"}
           </button>
         </div>
 
-        <p className="text-center text-sm text-[#888888] mt-6">
+        <p className="text-center text-sm text-[#6b6b6b] mt-6">
           Already have an account?{" "}
-          <Link href="/login" className="text-[#2D8B75] font-semibold hover:underline">
+          <Link href="/login" className="text-[#3d7a5f] font-semibold hover:underline">
             Sign In
           </Link>
         </p>
