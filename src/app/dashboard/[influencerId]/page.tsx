@@ -1,19 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
-
-interface Product {
-  id: string;
-  name: string;
-  brand: string;
-  price: number;
-  category: string;
-  description: string | null;
-  imageUrl: string | null;
-  createdAt: string;
-}
+import type { DBProduct } from "@/types/db";
 
 const CATEGORIES = [
   "Skincare",
@@ -31,7 +21,7 @@ const CATEGORIES = [
 
 export default function InfluencerDashboard() {
   const { influencerId } = useParams();
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<DBProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -44,20 +34,21 @@ export default function InfluencerDashboard() {
     description: "",
   });
 
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     const res = await fetch(`/api/products?influencerId=${influencerId}`);
     const data = await res.json();
     setProducts(data);
     setLoading(false);
-  };
+  }, [influencerId]);
 
   useEffect(() => {
     fetchProducts();
-  }, [influencerId]);
+  }, [fetchProducts]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    if (imagePreview) URL.revokeObjectURL(imagePreview);
     setImageFile(file);
     setImagePreview(URL.createObjectURL(file));
   };
@@ -103,10 +94,12 @@ export default function InfluencerDashboard() {
         return;
       }
 
+      const created = await res.json();
+      setProducts((prev) => [created, ...prev]);
       setForm({ name: "", brand: "", price: "", category: "Skincare", description: "" });
       setImageFile(null);
+      if (imagePreview) URL.revokeObjectURL(imagePreview);
       setImagePreview(null);
-      fetchProducts();
     } catch {
       alert("오류가 발생했습니다.");
     } finally {
@@ -117,7 +110,6 @@ export default function InfluencerDashboard() {
   return (
     <div className="min-h-screen bg-[#f9f9f7]">
       <div className="max-w-4xl mx-auto px-4 py-8">
-        {/* Header */}
         <div className="mb-8">
           <h1 className="text-h2 text-[#1a1a1a] font-bold">인플루언서 대시보드</h1>
           <p className="text-[#6b6b6b] mt-1">
@@ -125,7 +117,6 @@ export default function InfluencerDashboard() {
           </p>
         </div>
 
-        {/* Product Registration Form */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#e8e4de] mb-8">
           <h2 className="text-xl font-semibold text-[#1a1a1a] mb-6">제품 등록</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -268,7 +259,6 @@ export default function InfluencerDashboard() {
           </form>
         </div>
 
-        {/* Product List */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#e8e4de]">
           <h2 className="text-xl font-semibold text-[#1a1a1a] mb-6">
             등록된 제품 ({products.length})

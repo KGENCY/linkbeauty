@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { influencers, products, collections } from "@/data/mock";
+import type { DBProduct } from "@/types/db";
 import SectionHeader from "@/components/ui/SectionHeader";
 import InfluencerCard from "@/components/ui/InfluencerCard";
 import ProductCard from "@/components/ui/ProductCard";
@@ -11,26 +12,13 @@ import CollectionCard from "@/components/ui/CollectionCard";
 import CTABanner from "@/components/ui/CTABanner";
 import ReviewCard from "@/components/ui/ReviewCard";
 
-interface DBProduct {
-  id: string;
-  name: string;
-  brand: string;
-  price: number;
-  category: string;
-  description: string | null;
-  imageUrl: string | null;
-  influencerId: string;
-  createdAt: string;
-  influencer: { name: string };
-}
-
 export default function Home() {
   const featuredInfluencers = influencers.slice(0, 3);
   const trendingProducts = products.slice(0, 4);
   const [dbProducts, setDbProducts] = useState<DBProduct[]>([]);
 
   useEffect(() => {
-    fetch("/api/products")
+    fetch("/api/products?limit=8")
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) setDbProducts(data);

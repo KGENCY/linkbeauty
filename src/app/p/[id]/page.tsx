@@ -4,19 +4,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-
-interface DBProduct {
-  id: string;
-  name: string;
-  brand: string;
-  price: number;
-  category: string;
-  description: string | null;
-  imageUrl: string | null;
-  influencerId: string;
-  createdAt: string;
-  influencer: { name: string };
-}
+import type { DBProduct } from "@/types/db";
+import { trackClick } from "@/lib/trackClick";
 
 export default function DBProductDetailPage() {
   const { id } = useParams();
@@ -34,18 +23,10 @@ export default function DBProductDetailPage() {
       .catch(() => setLoading(false));
   }, [id]);
 
-  const handlePurchaseClick = async () => {
-    if (!product) return;
+  const handlePurchaseClick = () => {
+    if (!product || clicked) return;
     setClicked(true);
-
-    fetch("/api/clicks", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        productId: product.id,
-        influencerId: product.influencerId,
-      }),
-    }).catch(() => {});
+    trackClick(product.id, product.influencerId);
   };
 
   if (loading) {

@@ -3,11 +3,13 @@ import { prisma } from "@/lib/prisma";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const influencerId = searchParams.get("influencerId");
+  const limit = parseInt(searchParams.get("limit") || "100", 10);
 
   const products = await prisma.product.findMany({
     where: influencerId ? { influencerId } : undefined,
     include: { influencer: { select: { name: true } } },
     orderBy: { createdAt: "desc" },
+    take: Math.min(limit, 100),
   });
 
   return Response.json(products);
@@ -25,7 +27,6 @@ export async function POST(request: Request) {
     );
   }
 
-  // Ensure influencer exists, create if not
   await prisma.influencer.upsert({
     where: { id: influencerId },
     update: {},

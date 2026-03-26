@@ -7,6 +7,7 @@ import Link from "next/link";
 import { getProduct, getInfluencer, getRelatedProducts, reviews } from "@/data/mock";
 import { useCart } from "@/data/CartContext";
 import { useWishlist } from "@/data/WishlistContext";
+import { trackClick } from "@/lib/trackClick";
 import ProductCard from "@/components/ui/ProductCard";
 
 export default function ProductDetailPage() {
@@ -41,15 +42,7 @@ export default function ProductDetailPage() {
     addToCart(product.id, quantity);
     setIsCartOpen(true);
 
-    // Track purchase button click (fire-and-forget)
-    fetch("/api/clicks", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        productId: product.id,
-        influencerId: product.influencerId,
-      }),
-    }).catch(() => {});
+    trackClick(product.id, product.influencerId);
   };
 
   return (

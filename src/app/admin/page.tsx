@@ -13,27 +13,32 @@ interface Click {
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
-  const clicks = await prisma.purchaseClick.findMany({
-    include: {
-      product: { select: { name: true, brand: true } },
-      influencer: { select: { name: true } },
-    },
-    orderBy: { clickedAt: "desc" },
-  });
-
-  const totalClicks = clicks.length;
-  const uniqueProducts = new Set(clicks.map((c: Click) => c.productId)).size;
-  const uniqueVisitors = new Set(clicks.map((c: Click) => c.visitorIp)).size;
+  const [clicks, totalClicks, uniqueProducts, uniqueVisitors] =
+    await Promise.all([
+      prisma.purchaseClick.findMany({
+        include: {
+          product: { select: { name: true, brand: true } },
+          influencer: { select: { name: true } },
+        },
+        orderBy: { clickedAt: "desc" },
+        take: 200,
+      }),
+      prisma.purchaseClick.count(),
+      prisma.purchaseClick
+        .groupBy({ by: ["productId"] })
+        .then((r) => r.length),
+      prisma.purchaseClick
+        .groupBy({ by: ["visitorIp"] })
+        .then((r) => r.length),
+    ]);
 
   return (
     <div className="min-h-screen bg-[#f9f9f7]">
       <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Header */}
         <h1 className="text-h2 text-[#1a1a1a] font-bold mb-8">
           관리자 대시보드
         </h1>
 
-        {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#e8e4de]">
             <p className="text-sm text-[#6b6b6b]">총 클릭 수</p>
@@ -55,7 +60,6 @@ export default async function AdminDashboard() {
           </div>
         </div>
 
-        {/* Click Events Table */}
         <div className="bg-white rounded-2xl shadow-sm border border-[#e8e4de] overflow-hidden">
           <div className="p-6 border-b border-[#e8e4de]">
             <h2 className="text-xl font-semibold text-[#1a1a1a]">
