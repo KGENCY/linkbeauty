@@ -37,8 +37,8 @@ export async function GET() {
   });
 
   const totalClicks = clicks.length;
-  const uniqueProducts = new Set(clicks.map((c) => c.productId)).size;
-  const uniqueVisitors = new Set(clicks.map((c) => c.visitorIp)).size;
+  const uniqueProducts = new Set(clicks.map((c: typeof clicks[number]) => c.productId)).size;
+  const uniqueVisitors = new Set(clicks.map((c: typeof clicks[number]) => c.visitorIp)).size;
 
   return Response.json({
     stats: { totalClicks, uniqueProducts, uniqueVisitors },
