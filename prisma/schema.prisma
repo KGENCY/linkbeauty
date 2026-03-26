@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Influencer {
+  id        String          @id @default(cuid())
+  name      String
+  createdAt DateTime        @default(now()) @map("created_at")
+  products  Product[]
+  clicks    PurchaseClick[]
+
+  @@map("influencers")
+}
+
+model Product {
+  id           String          @id @default(cuid())
+  name         String
+  brand        String
+  price        Float
+  category     String
+  description  String?
+  imageUrl     String?         @map("image_url")
+  influencerId String          @map("influencer_id")
+  createdAt    DateTime        @default(now()) @map("created_at")
+  influencer   Influencer      @relation(fields: [influencerId], references: [id])
+  clicks       PurchaseClick[]
+
+  @@map("products")
+}
+
+model PurchaseClick {
+  id           String     @id @default(cuid())
+  productId    String     @map("product_id")
+  influencerId String     @map("influencer_id")
+  visitorIp    String?    @map("visitor_ip")
+  clickedAt    DateTime   @default(now()) @map("clicked_at")
+  product      Product    @relation(fields: [productId], references: [id])
+  influencer   Influencer @relation(fields: [influencerId], references: [id])
+
+  @@map("purchase_clicks")
+}

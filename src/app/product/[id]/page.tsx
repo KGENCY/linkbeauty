@@ -40,6 +40,16 @@ export default function ProductDetailPage() {
   const handleAddToCart = () => {
     addToCart(product.id, quantity);
     setIsCartOpen(true);
+
+    // Track purchase button click (fire-and-forget)
+    fetch("/api/clicks", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        productId: product.id,
+        influencerId: product.influencerId,
+      }),
+    }).catch(() => {});
   };
 
   return (

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { influencers, products, collections } from "@/data/mock";
@@ -10,9 +11,32 @@ import CollectionCard from "@/components/ui/CollectionCard";
 import CTABanner from "@/components/ui/CTABanner";
 import ReviewCard from "@/components/ui/ReviewCard";
 
+interface DBProduct {
+  id: string;
+  name: string;
+  brand: string;
+  price: number;
+  category: string;
+  description: string | null;
+  imageUrl: string | null;
+  influencerId: string;
+  createdAt: string;
+  influencer: { name: string };
+}
+
 export default function Home() {
   const featuredInfluencers = influencers.slice(0, 3);
   const trendingProducts = products.slice(0, 4);
+  const [dbProducts, setDbProducts] = useState<DBProduct[]>([]);
+
+  useEffect(() => {
+    fetch("/api/products")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) setDbProducts(data);
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <div className="min-h-screen">
@@ -96,6 +120,52 @@ export default function Home() {
             subtitle="Most loved products by our creators this week"
             href="/discover"
           />
+
+          {/* DB Products */}
+          {dbProducts.length > 0 && (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
+              {dbProducts.slice(0, 8).map((p, index) => (
+                <Link
+                  key={p.id}
+                  href={`/p/${p.id}`}
+                  className="group bg-white rounded-2xl overflow-hidden border border-[#e8e4de] hover:shadow-lg transition-all"
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
+                  <div className="relative aspect-square overflow-hidden rounded-t-2xl bg-[#f9f9f7]">
+                    {p.imageUrl ? (
+                      <Image
+                        src={p.imageUrl}
+                        alt={p.name}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <svg className="w-12 h-12 text-[#e8e4de]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-4">
+                    <div className="inline-flex items-center gap-1.5 mb-2 bg-[#f9f9f7] border border-[#e8e4de] rounded-full py-[3px] pl-2 pr-2.5">
+                      <span className="text-[12px] text-[#1a1a1a] font-medium">{p.influencer.name}&apos;s pick</span>
+                    </div>
+                    <p className="text-label text-[#6b6b6b]">{p.brand}</p>
+                    <h3 className="font-semibold text-[#1a1a1a] text-sm mt-1 line-clamp-2 group-hover:text-[#3d7a5f] transition-colors">
+                      {p.name}
+                    </h3>
+                    <div className="mt-3">
+                      <span className="text-[18px] font-semibold text-[#1a1a1a]">{p.price.toLocaleString()}원</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {/* Mock Products */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {trendingProducts.map((product, index) => (
               <ProductCard key={product.id} product={product} showInfluencer index={index} />
