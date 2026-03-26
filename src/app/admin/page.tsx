@@ -26,10 +26,10 @@ export default async function AdminDashboard() {
       prisma.purchaseClick.count(),
       prisma.purchaseClick
         .groupBy({ by: ["productId"] })
-        .then((r) => r.length),
+        .then((r: unknown[]) => r.length),
       prisma.purchaseClick
         .groupBy({ by: ["visitorIp"] })
-        .then((r) => r.length),
+        .then((r: unknown[]) => r.length),
     ]);
 
   return (
