@@ -45,6 +45,60 @@ interface ProductsByCategory {
 
 type ProductCategory = "serum" | "sunscreen" | "mask";
 
+interface Country {
+  code: string;
+  name: string;
+  flag: string;
+  currency: string;
+  rate: number; // KRW 기준 환율 (1 KRW = X 외화)
+  symbol: string;
+  format: (n: number) => string;
+}
+
+// ==================== 국가 및 환율 데이터 ====================
+const countries: Country[] = [
+  { code: "KR", name: "한국", flag: "🇰🇷", currency: "KRW", rate: 1, symbol: "₩", format: (n) => `₩${n.toLocaleString()}` },
+  { code: "US", name: "미국", flag: "🇺🇸", currency: "USD", rate: 1350, symbol: "$", format: (n) => `$${n.toFixed(2)}` },
+  { code: "JP", name: "일본", flag: "🇯🇵", currency: "JPY", rate: 9, symbol: "¥", format: (n) => `¥${n.toFixed(0)}` },
+  { code: "CN", name: "중국", flag: "🇨🇳", currency: "CNY", rate: 185, symbol: "CN¥", format: (n) => `CN¥${n.toFixed(0)}` },
+  { code: "VN", name: "베트남", flag: "🇻🇳", currency: "VND", rate: 0.054, symbol: "₫", format: (n) => `₫${n.toLocaleString()}` },
+  { code: "TH", name: "태국", flag: "🇹🇭", currency: "THB", rate: 38, symbol: "฿", format: (n) => `฿${n.toFixed(0)}` },
+  { code: "PH", name: "필리핀", flag: "🇵🇭", currency: "PHP", rate: 24, symbol: "₱", format: (n) => `₱${n.toFixed(0)}` },
+  { code: "ID", name: "인도네시아", flag: "🇮🇩", currency: "IDR", rate: 0.085, symbol: "Rp", format: (n) => `Rp${n.toLocaleString()}` },
+  { code: "MY", name: "말레이시아", flag: "🇲🇾", currency: "MYR", rate: 285, symbol: "RM", format: (n) => `RM${n.toFixed(2)}` },
+  { code: "SG", name: "싱가포르", flag: "🇸🇬", currency: "SGD", rate: 1000, symbol: "S$", format: (n) => `S$${n.toFixed(2)}` },
+  { code: "TW", name: "대만", flag: "🇹🇼", currency: "TWD", rate: 42, symbol: "NT$", format: (n) => `NT$${n.toFixed(0)}` },
+  { code: "HK", name: "홍콩", flag: "🇭🇰", currency: "HKD", rate: 173, symbol: "HK$", format: (n) => `HK$${n.toFixed(2)}` },
+  { code: "IN", name: "인도", flag: "🇮🇳", currency: "INR", rate: 16, symbol: "₹", format: (n) => `₹${n.toFixed(0)}` },
+  { code: "AU", name: "호주", flag: "🇦🇺", currency: "AUD", rate: 870, symbol: "A$", format: (n) => `A$${n.toFixed(2)}` },
+  { code: "NZ", name: "뉴질랜드", flag: "🇳🇿", currency: "NZD", rate: 800, symbol: "NZ$", format: (n) => `NZ$${n.toFixed(2)}` },
+  { code: "GB", name: "영국", flag: "🇬🇧", currency: "GBP", rate: 1700, symbol: "£", format: (n) => `£${n.toFixed(2)}` },
+  { code: "DE", name: "독일", flag: "🇩🇪", currency: "EUR", rate: 1450, symbol: "€", format: (n) => `€${n.toFixed(2)}` },
+  { code: "FR", name: "프랑스", flag: "🇫🇷", currency: "EUR", rate: 1450, symbol: "€", format: (n) => `€${n.toFixed(2)}` },
+  { code: "IT", name: "이탈리아", flag: "🇮🇹", currency: "EUR", rate: 1450, symbol: "€", format: (n) => `€${n.toFixed(2)}` },
+  { code: "ES", name: "스페인", flag: "🇪🇸", currency: "EUR", rate: 1450, symbol: "€", format: (n) => `€${n.toFixed(2)}` },
+  { code: "NL", name: "네덜란드", flag: "🇳🇱", currency: "EUR", rate: 1450, symbol: "€", format: (n) => `€${n.toFixed(2)}` },
+  { code: "CA", name: "캐나다", flag: "🇨🇦", currency: "CAD", rate: 980, symbol: "C$", format: (n) => `C$${n.toFixed(2)}` },
+  { code: "MX", name: "멕시코", flag: "🇲🇽", currency: "MXN", rate: 78, symbol: "MX$", format: (n) => `MX$${n.toFixed(0)}` },
+  { code: "BR", name: "브라질", flag: "🇧🇷", currency: "BRL", rate: 270, symbol: "R$", format: (n) => `R$${n.toFixed(2)}` },
+  { code: "RU", name: "러시아", flag: "🇷🇺", currency: "RUB", rate: 15, symbol: "₽", format: (n) => `₽${n.toFixed(0)}` },
+  { code: "TR", name: "튀르키예", flag: "🇹🇷", currency: "TRY", rate: 42, symbol: "₺", format: (n) => `₺${n.toFixed(0)}` },
+  { code: "AE", name: "아랍에미리트", flag: "🇦🇪", currency: "AED", rate: 368, symbol: "د.إ", format: (n) => `د.إ${n.toFixed(2)}` },
+  { code: "SA", name: "사우디아라비아", flag: "🇸🇦", currency: "SAR", rate: 360, symbol: "﷼", format: (n) => `﷼${n.toFixed(2)}` },
+  { code: "ZA", name: "남아프리카", flag: "🇿🇦", currency: "ZAR", rate: 73, symbol: "R", format: (n) => `R${n.toFixed(2)}` },
+  { code: "PL", name: "폴란드", flag: "🇵🇱", currency: "PLN", rate: 335, symbol: "zł", format: (n) => `${n.toFixed(2)}zł` },
+  { code: "SE", name: "스웨덴", flag: "🇸🇪", currency: "SEK", rate: 130, symbol: "kr", format: (n) => `${n.toFixed(0)}kr` },
+  { code: "NO", name: "노르웨이", flag: "🇳🇴", currency: "NOK", rate: 125, symbol: "kr", format: (n) => `${n.toFixed(0)}kr` },
+  { code: "DK", name: "덴마크", flag: "🇩🇰", currency: "DKK", rate: 195, symbol: "kr", format: (n) => `${n.toFixed(0)}kr` },
+  { code: "CH", name: "스위스", flag: "🇨🇭", currency: "CHF", rate: 1520, symbol: "CHF", format: (n) => `CHF${n.toFixed(2)}` },
+  { code: "AT", name: "오스트리아", flag: "🇦🇹", currency: "EUR", rate: 1450, symbol: "€", format: (n) => `€${n.toFixed(2)}` },
+  { code: "BE", name: "벨기에", flag: "🇧🇪", currency: "EUR", rate: 1450, symbol: "€", format: (n) => `€${n.toFixed(2)}` },
+  { code: "PT", name: "포르투갈", flag: "🇵🇹", currency: "EUR", rate: 1450, symbol: "€", format: (n) => `€${n.toFixed(2)}` },
+  { code: "GR", name: "그리스", flag: "🇬🇷", currency: "EUR", rate: 1450, symbol: "€", format: (n) => `€${n.toFixed(2)}` },
+  { code: "IE", name: "아일랜드", flag: "🇮🇪", currency: "EUR", rate: 1450, symbol: "€", format: (n) => `€${n.toFixed(2)}` },
+  { code: "FI", name: "핀란드", flag: "🇫🇮", currency: "EUR", rate: 1450, symbol: "€", format: (n) => `€${n.toFixed(2)}` },
+];
+
 // ==================== 질문 데이터 ====================
 const questions: Question[] = [
   {
@@ -327,170 +381,17 @@ const productsByResultKey: Record<string, ProductsByCategory> = {
   },
 };
 
-// ==================== 환율 데이터 ====================
-interface CurrencyInfo {
-  symbol: string;
-  rate: number; // KRW 기준 환율 (1 외화 = X KRW)
-  code: string;
-  format: (amount: number) => string;
-}
-
-const currencyByCountry: Record<string, CurrencyInfo> = {
-  // 아시아
-  KR: { symbol: "₩", rate: 1, code: "KRW", format: (n) => `₩${n.toLocaleString()}` },
-  JP: { symbol: "¥", rate: 10, code: "JPY", format: (n) => `¥${Math.round(n).toLocaleString()}` },
-  CN: { symbol: "¥", rate: 190, code: "CNY", format: (n) => `¥${n.toFixed(0)}` },
-  TW: { symbol: "NT$", rate: 42, code: "TWD", format: (n) => `NT$${Math.round(n).toLocaleString()}` },
-  HK: { symbol: "HK$", rate: 170, code: "HKD", format: (n) => `HK$${n.toFixed(0)}` },
-  TH: { symbol: "฿", rate: 38, code: "THB", format: (n) => `฿${Math.round(n).toLocaleString()}` },
-  VN: { symbol: "₫", rate: 0.054, code: "VND", format: (n) => `${Math.round(n).toLocaleString()}₫` },
-  ID: { symbol: "Rp", rate: 0.085, code: "IDR", format: (n) => `Rp${Math.round(n).toLocaleString()}` },
-  PH: { symbol: "₱", rate: 24, code: "PHP", format: (n) => `₱${Math.round(n).toLocaleString()}` },
-  MY: { symbol: "RM", rate: 290, code: "MYR", format: (n) => `RM${n.toFixed(0)}` },
-  SG: { symbol: "S$", rate: 980, code: "SGD", format: (n) => `S$${n.toFixed(2)}` },
-  IN: { symbol: "₹", rate: 16, code: "INR", format: (n) => `₹${Math.round(n).toLocaleString()}` },
-
-  // 북미/오세아니아
-  US: { symbol: "$", rate: 1300, code: "USD", format: (n) => `$${n.toFixed(2)}` },
-  CA: { symbol: "C$", rate: 970, code: "CAD", format: (n) => `C$${n.toFixed(2)}` },
-  AU: { symbol: "A$", rate: 860, code: "AUD", format: (n) => `A$${n.toFixed(2)}` },
-  NZ: { symbol: "NZ$", rate: 800, code: "NZD", format: (n) => `NZ$${n.toFixed(2)}` },
-
-  // 유럽
-  GB: { symbol: "£", rate: 1650, code: "GBP", format: (n) => `£${n.toFixed(2)}` },
-  DE: { symbol: "€", rate: 1420, code: "EUR", format: (n) => `€${n.toFixed(2)}` },
-  FR: { symbol: "€", rate: 1420, code: "EUR", format: (n) => `€${n.toFixed(2)}` },
-  IT: { symbol: "€", rate: 1420, code: "EUR", format: (n) => `€${n.toFixed(2)}` },
-  ES: { symbol: "€", rate: 1420, code: "EUR", format: (n) => `€${n.toFixed(2)}` },
-  NL: { symbol: "€", rate: 1420, code: "EUR", format: (n) => `€${n.toFixed(2)}` },
-  BE: { symbol: "€", rate: 1420, code: "EUR", format: (n) => `€${n.toFixed(2)}` },
-  AT: { symbol: "€", rate: 1420, code: "EUR", format: (n) => `€${n.toFixed(2)}` },
-  PT: { symbol: "€", rate: 1420, code: "EUR", format: (n) => `€${n.toFixed(2)}` },
-  GR: { symbol: "€", rate: 1420, code: "EUR", format: (n) => `€${n.toFixed(2)}` },
-  IE: { symbol: "€", rate: 1420, code: "EUR", format: (n) => `€${n.toFixed(2)}` },
-  FI: { symbol: "€", rate: 1420, code: "EUR", format: (n) => `€${n.toFixed(2)}` },
-  CH: { symbol: "CHF", rate: 1480, code: "CHF", format: (n) => `CHF ${n.toFixed(2)}` },
-  SE: { symbol: "kr", rate: 125, code: "SEK", format: (n) => `${Math.round(n)} kr` },
-  NO: { symbol: "kr", rate: 120, code: "NOK", format: (n) => `${Math.round(n)} kr` },
-  DK: { symbol: "kr", rate: 190, code: "DKK", format: (n) => `${Math.round(n)} kr` },
-  PL: { symbol: "zł", rate: 330, code: "PLN", format: (n) => `${n.toFixed(0)} zł` },
-  CZ: { symbol: "Kč", rate: 57, code: "CZK", format: (n) => `${Math.round(n)} Kč` },
-  HU: { symbol: "Ft", rate: 3.6, code: "HUF", format: (n) => `${Math.round(n).toLocaleString()} Ft` },
-  RO: { symbol: "lei", rate: 285, code: "RON", format: (n) => `${n.toFixed(0)} lei` },
-
-  // 기타
-  RU: { symbol: "₽", rate: 14.5, code: "RUB", format: (n) => `${Math.round(n).toLocaleString()} ₽` },
-  UA: { symbol: "₴", rate: 35, code: "UAH", format: (n) => `${Math.round(n)} ₴` },
-  TR: { symbol: "₺", rate: 40, code: "TRY", format: (n) => `${n.toFixed(0)} ₺` },
-  IL: { symbol: "₪", rate: 360, code: "ILS", format: (n) => `₪${n.toFixed(0)}` },
-  SA: { symbol: "﷼", rate: 347, code: "SAR", format: (n) => `${n.toFixed(0)} ﷼` },
-  AE: { symbol: "د.إ", rate: 354, code: "AED", format: (n) => `${n.toFixed(0)} د.إ` },
-  BR: { symbol: "R$", rate: 265, code: "BRL", format: (n) => `R$${n.toFixed(2)}` },
-  MX: { symbol: "$", rate: 76, code: "MXN", format: (n) => `$${n.toFixed(0)} MXN` },
-  AR: { symbol: "$", rate: 1.5, code: "ARS", format: (n) => `$${Math.round(n).toLocaleString()} ARS` },
-  CL: { symbol: "$", rate: 1.4, code: "CLP", format: (n) => `$${Math.round(n).toLocaleString()} CLP` },
-  CO: { symbol: "$", rate: 0.33, code: "COP", format: (n) => `$${Math.round(n).toLocaleString()} COP` },
-  PE: { symbol: "S/", rate: 350, code: "PEN", format: (n) => `S/${n.toFixed(0)}` },
-  ZA: { symbol: "R", rate: 72, code: "ZAR", format: (n) => `R${n.toFixed(0)}` },
-  EG: { symbol: "E£", rate: 27, code: "EGP", format: (n) => `E£${Math.round(n)}` },
-  NG: { symbol: "₦", rate: 0.87, code: "NGN", format: (n) => `₦${Math.round(n).toLocaleString()}` },
-  KE: { symbol: "KSh", rate: 10, code: "KES", format: (n) => `KSh${Math.round(n).toLocaleString()}` },
-  PK: { symbol: "Rs", rate: 4.7, code: "PKR", format: (n) => `Rs${Math.round(n).toLocaleString()}` },
-  BD: { symbol: "৳", rate: 12, code: "BDT", format: (n) => `৳${Math.round(n).toLocaleString()}` },
-  MM: { symbol: "K", rate: 0.62, code: "MMK", format: (n) => `${Math.round(n).toLocaleString()} K` },
-  KH: { symbol: "$", rate: 0.32, code: "KHR", format: (n) => `$${(n / 4100).toFixed(2)}` },
-  LA: { symbol: "₭", rate: 0.065, code: "LAK", format: (n) => `${Math.round(n).toLocaleString()} ₭` },
-  MO: { symbol: "MOP$", rate: 162, code: "MOP", format: (n) => `MOP$${n.toFixed(0)}` },
-};
-
-// 기본 환율 (매핑되지 않은 국가용)
-const defaultCurrency: CurrencyInfo = { symbol: "$", rate: 1300, code: "USD", format: (n) => `$${n.toFixed(2)}` };
-
-// 가격 변환 함수
-function convertPrice(priceKRW: number, countryCode: string | null): string {
-  const currency = countryCode ? currencyByCountry[countryCode] || defaultCurrency : defaultCurrency;
-  const convertedPrice = priceKRW / currency.rate;
-  return currency.format(convertedPrice);
-}
-
-// ==================== 국가 데이터 ====================
-const popularCountries = [
-  { code: "US", name: "미국", flag: "🇺🇸" },
-  { code: "JP", name: "일본", flag: "🇯🇵" },
-  { code: "CN", name: "중국", flag: "🇨🇳" },
-  { code: "TW", name: "대만", flag: "🇹🇼" },
-  { code: "TH", name: "태국", flag: "🇹🇭" },
-  { code: "VN", name: "베트남", flag: "🇻🇳" },
-  { code: "ID", name: "인도네시아", flag: "🇮🇩" },
-  { code: "PH", name: "필리핀", flag: "🇵🇭" },
-  { code: "MY", name: "말레이시아", flag: "🇲🇾" },
-  { code: "SG", name: "싱가포르", flag: "🇸🇬" },
-  { code: "AU", name: "호주", flag: "🇦🇺" },
-  { code: "CA", name: "캐나다", flag: "🇨🇦" },
-  { code: "GB", name: "영국", flag: "🇬🇧" },
-  { code: "DE", name: "독일", flag: "🇩🇪" },
-  { code: "FR", name: "프랑스", flag: "🇫🇷" },
-];
-
-const allCountries = [
-  ...popularCountries,
-  { code: "KR", name: "한국", flag: "🇰🇷" },
-  { code: "IN", name: "인도", flag: "🇮🇳" },
-  { code: "BR", name: "브라질", flag: "🇧🇷" },
-  { code: "MX", name: "멕시코", flag: "🇲🇽" },
-  { code: "ES", name: "스페인", flag: "🇪🇸" },
-  { code: "IT", name: "이탈리아", flag: "🇮🇹" },
-  { code: "NL", name: "네덜란드", flag: "🇳🇱" },
-  { code: "SE", name: "스웨덴", flag: "🇸🇪" },
-  { code: "NO", name: "노르웨이", flag: "🇳🇴" },
-  { code: "DK", name: "덴마크", flag: "🇩🇰" },
-  { code: "FI", name: "핀란드", flag: "🇫🇮" },
-  { code: "CH", name: "스위스", flag: "🇨🇭" },
-  { code: "AT", name: "오스트리아", flag: "🇦🇹" },
-  { code: "BE", name: "벨기에", flag: "🇧🇪" },
-  { code: "PL", name: "폴란드", flag: "🇵🇱" },
-  { code: "RU", name: "러시아", flag: "🇷🇺" },
-  { code: "UA", name: "우크라이나", flag: "🇺🇦" },
-  { code: "TR", name: "튀르키예", flag: "🇹🇷" },
-  { code: "SA", name: "사우디아라비아", flag: "🇸🇦" },
-  { code: "AE", name: "아랍에미리트", flag: "🇦🇪" },
-  { code: "NZ", name: "뉴질랜드", flag: "🇳🇿" },
-  { code: "ZA", name: "남아프리카공화국", flag: "🇿🇦" },
-  { code: "AR", name: "아르헨티나", flag: "🇦🇷" },
-  { code: "CL", name: "칠레", flag: "🇨🇱" },
-  { code: "CO", name: "콜롬비아", flag: "🇨🇴" },
-  { code: "PE", name: "페루", flag: "🇵🇪" },
-  { code: "EG", name: "이집트", flag: "🇪🇬" },
-  { code: "NG", name: "나이지리아", flag: "🇳🇬" },
-  { code: "KE", name: "케냐", flag: "🇰🇪" },
-  { code: "PK", name: "파키스탄", flag: "🇵🇰" },
-  { code: "BD", name: "방글라데시", flag: "🇧🇩" },
-  { code: "MM", name: "미얀마", flag: "🇲🇲" },
-  { code: "KH", name: "캄보디아", flag: "🇰🇭" },
-  { code: "LA", name: "라오스", flag: "🇱🇦" },
-  { code: "HK", name: "홍콩", flag: "🇭🇰" },
-  { code: "MO", name: "마카오", flag: "🇲🇴" },
-  { code: "PT", name: "포르투갈", flag: "🇵🇹" },
-  { code: "GR", name: "그리스", flag: "🇬🇷" },
-  { code: "CZ", name: "체코", flag: "🇨🇿" },
-  { code: "HU", name: "헝가리", flag: "🇭🇺" },
-  { code: "RO", name: "루마니아", flag: "🇷🇴" },
-  { code: "IL", name: "이스라엘", flag: "🇮🇱" },
-  { code: "IE", name: "아일랜드", flag: "🇮🇪" },
-];
-
 // ==================== 로딩 메시지 ====================
 const loadingMessages = [
   "답변해주셔서 감사해요!",
   "당신의 피부 타입을 분석 중이에요!",
-  "곧 당신의 피부 타입과 꼭 맞는 K-뷰티 제품까지 알려줄게요!",
+  "곧 결과를 알려드릴게요!",
 ];
 
 // ==================== 결과 판정 함수 ====================
 function determineResult(scores: Scores): ResultData {
   const { OIL, DRY, SEN, COMB, ACNE } = scores;
 
-  // 우선순위 순서대로 체크
   // 1) 지성 + 트러블형
   if (OIL >= 4 && ACNE >= 4) {
     return resultsData.oily_acne;
@@ -544,31 +445,52 @@ interface SkinTestProps {
   onClose: () => void;
 }
 
-type Step = "welcome" | "nationality" | "questions" | "loading" | "result";
+type Step = "welcome" | "nationality" | "questions" | "loading" | "result" | "instagram" | "complete";
 
 export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
   // 상태 관리
   const [step, setStep] = useState<Step>("welcome");
-  const [selectedNationality, setSelectedNationality] = useState<string | null>(null);
-  const [nationalitySearch, setNationalitySearch] = useState("");
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [scores, setScores] = useState<Scores>({ OIL: 0, DRY: 0, SEN: 0, COMB: 0, ACNE: 0 });
+  const [answerHistory, setAnswerHistory] = useState<number[]>([]);
   const [result, setResult] = useState<ResultData | null>(null);
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<ProductCategory>("serum");
+  const [instagramId, setInstagramId] = useState("");
+  const [selectedNationality, setSelectedNationality] = useState<Country | null>(null);
+  const [countrySearch, setCountrySearch] = useState("");
+
+  // 국가 검색 필터
+  const filteredCountries = countries.filter(
+    (country) =>
+      country.name.toLowerCase().includes(countrySearch.toLowerCase()) ||
+      country.code.toLowerCase().includes(countrySearch.toLowerCase())
+  );
+
+  // 환율 변환 함수
+  const convertPrice = useCallback(
+    (priceKRW: number): string => {
+      if (!selectedNationality) return `₩${priceKRW.toLocaleString()}`;
+      const converted = priceKRW / selectedNationality.rate;
+      return selectedNationality.format(converted);
+    },
+    [selectedNationality]
+  );
 
   // 초기화
   const resetTest = useCallback(() => {
     setStep("welcome");
-    setSelectedNationality(null);
-    setNationalitySearch("");
     setCurrentQuestion(0);
     setScores({ OIL: 0, DRY: 0, SEN: 0, COMB: 0, ACNE: 0 });
+    setAnswerHistory([]);
     setResult(null);
     setLoadingMessageIndex(0);
     setSelectedAnswer(null);
     setSelectedCategory("serum");
+    setInstagramId("");
+    setSelectedNationality(null);
+    setCountrySearch("");
   }, []);
 
   // 닫힐 때 초기화
@@ -616,6 +538,35 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
     };
   }, [isOpen]);
 
+  // 뒤로가기 핸들러
+  const handleBack = () => {
+    if (step === "nationality") {
+      setStep("welcome");
+    } else if (step === "questions") {
+      if (currentQuestion === 0) {
+        setStep("nationality");
+      } else {
+        // 이전 질문으로 돌아가면서 점수 되돌리기
+        const prevAnswerIndex = answerHistory[currentQuestion - 1];
+        const prevAnswer = questions[currentQuestion - 1].answers[prevAnswerIndex];
+
+        const newScores = { ...scores };
+        if (prevAnswer.scores.OIL) newScores.OIL -= prevAnswer.scores.OIL;
+        if (prevAnswer.scores.DRY) newScores.DRY -= prevAnswer.scores.DRY;
+        if (prevAnswer.scores.SEN) newScores.SEN -= prevAnswer.scores.SEN;
+        if (prevAnswer.scores.COMB) newScores.COMB -= prevAnswer.scores.COMB;
+        if (prevAnswer.scores.ACNE) newScores.ACNE -= prevAnswer.scores.ACNE;
+        setScores(newScores);
+
+        const newHistory = [...answerHistory];
+        newHistory.pop();
+        setAnswerHistory(newHistory);
+
+        setCurrentQuestion(currentQuestion - 1);
+      }
+    }
+  };
+
   // 답변 선택 핸들러
   const handleAnswer = (answerIndex: number) => {
     setSelectedAnswer(answerIndex);
@@ -629,6 +580,10 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
     if (answer.scores.ACNE) newScores.ACNE += answer.scores.ACNE;
     setScores(newScores);
 
+    // 답변 기록 저장
+    const newHistory = [...answerHistory, answerIndex];
+    setAnswerHistory(newHistory);
+
     setTimeout(() => {
       setSelectedAnswer(null);
       if (currentQuestion < questions.length - 1) {
@@ -638,15 +593,6 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
       }
     }, 300);
   };
-
-  // 국가 필터링
-  const filteredCountries = nationalitySearch
-    ? allCountries.filter(
-        (c) =>
-          c.name.toLowerCase().includes(nationalitySearch.toLowerCase()) ||
-          c.code.toLowerCase().includes(nationalitySearch.toLowerCase())
-      )
-    : popularCountries;
 
   // 현재 결과에 해당하는 제품 가져오기
   const currentProducts = result ? productsByResultKey[result.key] : null;
@@ -669,6 +615,20 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
         </svg>
       </button>
 
+      {/* 뒤로가기 버튼 (국가 선택, 질문 화면에서만 표시) */}
+      {(step === "nationality" || step === "questions") && (
+        <button
+          onClick={handleBack}
+          className="fixed top-4 left-4 z-50 flex items-center gap-1 px-3 py-2 rounded-full bg-white/80 backdrop-blur-sm shadow-md hover:bg-white transition-all text-[#6b6b6b] hover:text-[#1a1a1a]"
+          aria-label="뒤로가기"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          <span className="text-sm font-medium">뒤로</span>
+        </button>
+      )}
+
       {/* 콘텐츠 컨테이너 */}
       <div className="relative h-full overflow-y-auto">
         {/* ==================== 웰컴 화면 ==================== */}
@@ -684,77 +644,81 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
               </div>
 
               <h1 className="text-2xl sm:text-3xl font-display font-bold text-[#1a1a1a] mb-4">
-                피부 타입 매칭 테스트
+                피부 타입 테스트
               </h1>
 
               <p className="text-[#4a4a4a] mb-4 leading-relaxed">
-                몇 가지 간단한 질문에 답하면<br />
-                당신의 피부 성향에 맞는<br />
-                K-뷰티 제품 방향을 찾아드릴게요.
+                6개의 간단한 질문에 답하면<br />
+                당신의 피부 타입을 알려드릴게요
               </p>
 
-              <p className="text-sm text-[#6b6b6b] mb-10 bg-[#f0f7f3] rounded-2xl px-4 py-3">
-                피부 지식이 없어도 괜찮아요.<br />
-                평소 피부가 어떻게 느껴지는지만 답해주면 됩니다.
+              <p className="text-sm text-[#6b6b6b] mb-10">
+                약 30초 소요
               </p>
 
               <button
                 onClick={() => setStep("nationality")}
                 className="w-full bg-[#3d7a5f] text-white py-4 px-8 rounded-full font-semibold text-lg shadow-lg shadow-[#3d7a5f]/25 hover:bg-[#2d6a4f] transition-all hover:scale-[1.02] active:scale-[0.98]"
               >
-                테스트 시작하기
+                시작하기
               </button>
             </div>
           </div>
         )}
 
-        {/* ==================== 국적 선택 화면 ==================== */}
+        {/* ==================== 국가 선택 화면 ==================== */}
         {step === "nationality" && (
           <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16">
             <div className="skin-test-question-enter max-w-md w-full">
-              <div className="mb-8">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <span className="text-sm text-[#3d7a5f] font-medium">Step 1 / 7</span>
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#3d7a5f] to-[#6aaa8e] flex items-center justify-center shadow-lg shadow-[#3d7a5f]/20 mb-6">
+                  <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
-                <div className="h-1.5 bg-[#e8e4de] rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-[#3d7a5f] to-[#6aaa8e] rounded-full transition-all duration-500" style={{ width: `${(1 / 7) * 100}%` }} />
+
+                <h1 className="text-2xl sm:text-3xl font-display font-bold text-[#1a1a1a] mb-3">
+                  어디에서 오셨나요?
+                </h1>
+
+                <p className="text-[#6b6b6b] text-sm">
+                  추천 제품 가격을 당신의 국가 기준으로 보여드릴게요
+                </p>
+              </div>
+
+              {/* 검색 입력 */}
+              <div className="mb-4">
+                <div className="relative">
+                  <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#6b6b6b]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  <input
+                    type="text"
+                    value={countrySearch}
+                    onChange={(e) => setCountrySearch(e.target.value)}
+                    placeholder="국가 검색..."
+                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#e8e4de] focus:border-[#3d7a5f] focus:outline-none transition-colors bg-white"
+                  />
                 </div>
               </div>
 
-              <h2 className="text-xl sm:text-2xl font-display font-bold text-[#1a1a1a] text-center mb-2">
-                어디에서 오셨나요?
-              </h2>
-              <p className="text-sm text-[#6b6b6b] text-center mb-6">
-                이 정보는 나중에 더 잘 맞는 제품과<br />
-                크리에이터를 추천하는 데 활용돼요.
-              </p>
-
-              <div className="relative mb-4">
-                <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#6b6b6b]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <input
-                  type="text"
-                  placeholder="국가 검색..."
-                  value={nationalitySearch}
-                  onChange={(e) => setNationalitySearch(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-2xl border-2 border-[#e8e4de] focus:border-[#3d7a5f] focus:outline-none transition-colors bg-white"
-                />
-              </div>
-
-              <div className="bg-white rounded-3xl border border-[#e8e4de] shadow-sm overflow-hidden mb-6 max-h-[300px] overflow-y-auto">
+              {/* 국가 리스트 */}
+              <div className="bg-white rounded-2xl border border-[#e8e4de] overflow-hidden max-h-[320px] overflow-y-auto">
                 {filteredCountries.map((country) => (
                   <button
                     key={country.code}
-                    onClick={() => setSelectedNationality(country.code)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-[#f9f9f7] transition-colors border-b border-[#f0f0ee] last:border-b-0 ${
-                      selectedNationality === country.code ? "bg-[#e8f4ee]" : ""
+                    onClick={() => setSelectedNationality(country)}
+                    className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all border-b border-[#f0f0f0] last:border-b-0 ${
+                      selectedNationality?.code === country.code
+                        ? "bg-[#e8f4ee]"
+                        : "hover:bg-[#f9f9f7]"
                     }`}
                   >
                     <span className="text-2xl">{country.flag}</span>
-                    <span className="text-[#1a1a1a] font-medium">{country.name}</span>
-                    {selectedNationality === country.code && (
-                      <svg className="w-5 h-5 text-[#3d7a5f] ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <span className="flex-1 font-medium text-[#1a1a1a]">{country.name}</span>
+                    <span className="text-sm text-[#6b6b6b]">{country.symbol}</span>
+                    {selectedNationality?.code === country.code && (
+                      <svg className="w-5 h-5 text-[#3d7a5f]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     )}
@@ -767,10 +731,11 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
                 )}
               </div>
 
+              {/* 다음 버튼 */}
               <button
                 onClick={() => setStep("questions")}
                 disabled={!selectedNationality}
-                className={`w-full py-4 px-8 rounded-full font-semibold text-lg transition-all ${
+                className={`w-full mt-6 py-4 px-8 rounded-full font-semibold text-lg transition-all ${
                   selectedNationality
                     ? "bg-[#3d7a5f] text-white shadow-lg shadow-[#3d7a5f]/25 hover:bg-[#2d6a4f] hover:scale-[1.02] active:scale-[0.98]"
                     : "bg-[#e8e4de] text-[#a0a0a0] cursor-not-allowed"
@@ -788,20 +753,14 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
             <div className="fixed top-0 left-0 right-0 h-1.5 bg-[#e8e4de] z-40">
               <div
                 className="h-full bg-gradient-to-r from-[#3d7a5f] to-[#6aaa8e] transition-all duration-500 ease-out"
-                style={{ width: `${((currentQuestion + 2) / 7) * 100}%` }}
+                style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
               />
             </div>
 
             <div key={currentQuestion} className="skin-test-question-enter max-w-md w-full">
               <div className="text-center mb-6">
                 <span className="text-sm text-[#3d7a5f] font-medium">
-                  Step {currentQuestion + 2} / 7
-                </span>
-              </div>
-
-              <div className="flex justify-center mb-4">
-                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#e8f4ee] text-[#3d7a5f] font-bold">
-                  Q{currentQuestion + 1}
+                  {currentQuestion + 1} / {questions.length}
                 </span>
               </div>
 
@@ -821,12 +780,7 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
                     }`}
                     style={{ animationDelay: `${index * 80}ms` }}
                   >
-                    <div className="flex items-center gap-4">
-                      <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[#f9f9f7] flex items-center justify-center text-sm font-bold text-[#6b6b6b]">
-                        {String.fromCharCode(65 + index)}
-                      </span>
-                      <span className="text-[#1a1a1a] font-medium leading-snug">{answer.text}</span>
-                    </div>
+                    <span className="text-[#1a1a1a] font-medium leading-snug">{answer.text}</span>
                   </button>
                 ))}
               </div>
@@ -874,7 +828,7 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
                 <div className="absolute bottom-1/3 right-1/6 skin-test-sparkle" style={{ animationDelay: "0.5s" }}>✦</div>
               </div>
 
-              <div className="h-20 flex items-center justify-center">
+              <div className="h-16 flex items-center justify-center">
                 <p key={loadingMessageIndex} className="text-lg sm:text-xl text-[#1a1a1a] font-medium skin-test-loading-text leading-relaxed">
                   {loadingMessages[loadingMessageIndex]}
                 </p>
@@ -889,15 +843,6 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
                     }`}
                   />
                 ))}
-              </div>
-
-              <div className="mt-8 max-w-xs mx-auto">
-                <div className="h-2 bg-[#e8e4de] rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-to-r from-[#3d7a5f] to-[#6aaa8e] rounded-full transition-all duration-[2000ms] ease-linear"
-                    style={{ width: `${((loadingMessageIndex + 1) / loadingMessages.length) * 100}%` }}
-                  />
-                </div>
               </div>
             </div>
           </div>
@@ -929,30 +874,17 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
                   <div className="w-16 h-1 bg-gradient-to-r from-[#3d7a5f] to-[#6aaa8e] rounded-full mx-auto" />
                 </div>
 
-                <div className="mb-6">
-                  <h3 className="text-sm text-[#3d7a5f] font-semibold mb-3 flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    설명
-                  </h3>
-                  <p className="text-[#4a4a4a] leading-relaxed whitespace-pre-line">
-                    {result.description}
-                  </p>
-                </div>
+                <p className="text-[#4a4a4a] leading-relaxed whitespace-pre-line text-center mb-6">
+                  {result.description}
+                </p>
 
-                <div className="border-t border-[#e8e4de] my-6" />
-
-                <div>
-                  <h3 className="text-sm text-[#3d7a5f] font-semibold mb-3 flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
+                <div className="border-t border-[#e8e4de] pt-6">
+                  <h3 className="text-sm text-[#3d7a5f] font-semibold mb-3 text-center">
                     주의해야 할 점
                   </h3>
                   <ul className="space-y-2">
                     {result.cautions.map((caution, index) => (
-                      <li key={index} className="flex items-start gap-3 text-[#4a4a4a]">
+                      <li key={index} className="flex items-start gap-3 text-[#4a4a4a] text-sm">
                         <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#e8f4ee] flex items-center justify-center text-xs text-[#3d7a5f] font-bold mt-0.5">
                           {index + 1}
                         </span>
@@ -963,28 +895,32 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
                 </div>
               </div>
 
-              {/* ==================== 추천 제품 섹션 ==================== */}
+              {/* 추천 제품 섹션 */}
               {currentProducts && (
-                <div className="mb-6 skin-test-products-enter">
-                  {/* 섹션 헤더 */}
-                  <div className="text-center mb-6">
-                    <h2 className="text-xl sm:text-2xl font-display font-bold text-[#1a1a1a] mb-2">
-                      당신에게 딱 맞는 K-뷰티 제품
+                <div className="mb-6">
+                  <div className="text-center mb-4">
+                    <h2 className="text-lg font-semibold text-[#1a1a1a] mb-1">
+                      추천 제품
                     </h2>
                     <p className="text-sm text-[#6b6b6b]">
-                      당신의 피부 타입에 맞춰 선별된 제품이에요
+                      당신의 피부 타입에 맞는 제품이에요
                     </p>
+                    {selectedNationality && selectedNationality.code !== "KR" && (
+                      <p className="text-xs text-[#3d7a5f] mt-1">
+                        {selectedNationality.flag} {selectedNationality.name} 기준 가격
+                      </p>
+                    )}
                   </div>
 
                   {/* 카테고리 탭 */}
-                  <div className="flex gap-2 mb-6 bg-[#f0f7f3] p-1.5 rounded-2xl">
+                  <div className="flex gap-2 mb-4 bg-[#f0f7f3] p-1 rounded-xl">
                     {(["serum", "sunscreen", "mask"] as ProductCategory[]).map((category) => (
                       <button
                         key={category}
                         onClick={() => setSelectedCategory(category)}
-                        className={`flex-1 py-3 px-4 rounded-xl font-medium text-sm transition-all duration-300 ${
+                        className={`flex-1 py-2 px-3 rounded-lg font-medium text-sm transition-all duration-300 ${
                           selectedCategory === category
-                            ? "bg-white text-[#3d7a5f] shadow-md"
+                            ? "bg-white text-[#3d7a5f] shadow-sm"
                             : "text-[#6b6b6b] hover:text-[#3d7a5f]"
                         }`}
                       >
@@ -993,89 +929,161 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
                     ))}
                   </div>
 
-                  {/* 제품 리스트 */}
-                  <div className="space-y-4">
+                  {/* 제품 카드 */}
+                  <div className="space-y-3">
                     {currentProducts[selectedCategory].map((product, index) => (
                       <div
                         key={`${selectedCategory}-${index}`}
-                        className="skin-test-product-card bg-white rounded-2xl p-4 border border-[#e8e4de] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                        className="bg-white rounded-2xl p-4 border border-[#e8e4de] shadow-sm"
                       >
                         <div className="flex gap-4">
-                          {/* 제품 이미지 */}
-                          <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-gradient-to-br from-[#f0f7f3] to-[#e8f4ee] overflow-hidden relative">
+                          <div className="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-[#f0f7f3] to-[#e8f4ee] overflow-hidden relative">
                             {product.image ? (
                               <Image
                                 src={product.image}
                                 alt={product.name}
                                 fill
                                 className="object-contain p-1"
-                                sizes="(max-width: 640px) 80px, 96px"
+                                sizes="64px"
                               />
                             ) : (
                               <div className="w-full h-full flex items-center justify-center">
-                                <svg className="w-8 h-8 text-[#3d7a5f]/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg className="w-6 h-6 text-[#3d7a5f]/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                                 </svg>
                               </div>
                             )}
                           </div>
-
-                          {/* 제품 정보 */}
                           <div className="flex-1 min-w-0">
-                            <h3 className="font-semibold text-[#1a1a1a] mb-1 leading-snug">
+                            <h3 className="font-semibold text-[#1a1a1a] text-sm mb-1">
                               {product.name}
                             </h3>
-                            <p className="text-sm text-[#6b6b6b] mb-2 line-clamp-1">
+                            <p className="text-xs text-[#6b6b6b] mb-2">
                               {product.desc}
                             </p>
-                            <div className="flex items-center justify-between">
-                              <span className="text-lg font-bold text-[#3d7a5f]">
-                                {convertPrice(product.priceKRW, selectedNationality)}
-                              </span>
-                              {/* 구매 버튼 자리 (추후 확장용) */}
-                              <button
-                                disabled
-                                className="px-4 py-1.5 rounded-full text-sm font-medium bg-[#e8e4de] text-[#a0a0a0] cursor-not-allowed"
-                              >
-                                곧 오픈
-                              </button>
-                            </div>
+                            <p className="text-sm font-bold text-[#3d7a5f]">
+                              {convertPrice(product.priceKRW)}
+                            </p>
                           </div>
                         </div>
                       </div>
                     ))}
                   </div>
-
-                  {/* 추가 안내 */}
-                  <p className="text-center text-xs text-[#6b6b6b] mt-4">
-                    💡 더 많은 추천 제품이 곧 추가될 예정이에요
-                  </p>
                 </div>
               )}
 
-              {/* CTA 버튼들 */}
+              {/* CTA 버튼 */}
+              <button
+                onClick={() => setStep("instagram")}
+                className="w-full bg-[#3d7a5f] text-white py-4 px-6 rounded-full font-semibold text-lg shadow-lg shadow-[#3d7a5f]/25 hover:bg-[#2d6a4f] transition-all hover:scale-[1.02] active:scale-[0.98]"
+              >
+                무료 제품 받기
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ==================== 인스타그램 입력 화면 ==================== */}
+        {step === "instagram" && (
+          <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16">
+            <div className="skin-test-welcome-enter max-w-md w-full text-center">
+              {/* 아이콘 */}
+              <div className="mb-8">
+                <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-[#3d7a5f] to-[#6aaa8e] flex items-center justify-center shadow-lg shadow-[#3d7a5f]/20">
+                  <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                  </svg>
+                </div>
+              </div>
+
+              <h1 className="text-2xl sm:text-3xl font-display font-bold text-[#1a1a1a] mb-3">
+                무료 제품을 받아보세요
+              </h1>
+
+              <p className="text-[#6b6b6b] mb-8">
+                당첨 시 연락드릴 인스타 아이디를 입력해주세요
+              </p>
+
+              {/* 입력 필드 */}
+              <div className="mb-6">
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#6b6b6b] font-medium">
+                    @
+                  </span>
+                  <input
+                    type="text"
+                    value={instagramId}
+                    onChange={(e) => setInstagramId(e.target.value.replace(/^@/, ""))}
+                    placeholder="instagram_id"
+                    className="w-full pl-10 pr-4 py-4 rounded-2xl border-2 border-[#e8e4de] focus:border-[#3d7a5f] focus:outline-none transition-colors bg-white text-lg"
+                  />
+                </div>
+              </div>
+
+              {/* 완료 버튼 */}
+              <button
+                onClick={() => setStep("complete")}
+                disabled={!instagramId.trim()}
+                className={`w-full py-4 px-8 rounded-full font-semibold text-lg transition-all ${
+                  instagramId.trim()
+                    ? "bg-[#3d7a5f] text-white shadow-lg shadow-[#3d7a5f]/25 hover:bg-[#2d6a4f] hover:scale-[1.02] active:scale-[0.98]"
+                    : "bg-[#e8e4de] text-[#a0a0a0] cursor-not-allowed opacity-50"
+                }`}
+              >
+                완료하기
+              </button>
+
+              {/* 스킵 옵션 */}
+              <button
+                onClick={onClose}
+                className="mt-4 text-sm text-[#6b6b6b] hover:text-[#3d7a5f] transition-colors"
+              >
+                다음에 할게요
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ==================== 완료 화면 ==================== */}
+        {step === "complete" && (
+          <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16">
+            <div className="skin-test-welcome-enter max-w-md w-full text-center">
+              {/* 체크 아이콘 */}
+              <div className="mb-8">
+                <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-[#3d7a5f] to-[#6aaa8e] flex items-center justify-center shadow-xl shadow-[#3d7a5f]/30">
+                  <svg className="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+              </div>
+
+              <h1 className="text-2xl sm:text-3xl font-display font-bold text-[#1a1a1a] mb-3">
+                참여가 완료되었습니다
+              </h1>
+
+              <p className="text-[#6b6b6b] mb-2">
+                당첨 시 입력하신 인스타로 연락드릴게요
+              </p>
+
+              <p className="text-sm text-[#3d7a5f] font-medium mb-10">
+                @{instagramId}
+              </p>
+
+              {/* 버튼들 */}
               <div className="space-y-3">
                 <button
-                  onClick={() => {
-                    onClose();
-                    // 추후 제품 추천 페이지로 연결
-                  }}
-                  className="w-full bg-[#3d7a5f] text-white py-4 px-6 rounded-full font-semibold text-lg shadow-lg shadow-[#3d7a5f]/25 hover:bg-[#2d6a4f] transition-all hover:scale-[1.02] active:scale-[0.98]"
+                  onClick={onClose}
+                  className="w-full bg-[#3d7a5f] text-white py-4 px-8 rounded-full font-semibold text-lg shadow-lg shadow-[#3d7a5f]/25 hover:bg-[#2d6a4f] transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  나에게 맞는 제품 보기
+                  완료
                 </button>
                 <button
                   onClick={resetTest}
-                  className="w-full bg-white text-[#1a1a1a] py-4 px-6 rounded-full font-semibold border-2 border-[#e8e4de] hover:border-[#3d7a5f] transition-all"
+                  className="w-full bg-white text-[#1a1a1a] py-4 px-8 rounded-full font-semibold border-2 border-[#e8e4de] hover:border-[#3d7a5f] transition-all"
                 >
                   다시 테스트하기
                 </button>
               </div>
-
-              {/* 결과 키 (개발용) */}
-              <p className="text-center text-xs text-[#a0a0a0] mt-6">
-                결과 키: <span className="font-mono">{result.key}</span>
-              </p>
             </div>
           </div>
         )}

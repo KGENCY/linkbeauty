@@ -93,6 +93,11 @@ textarea:focus-visible {
   --foreground: var(--color-text-primary);
 }
 
+/* Radial gradient utility */
+.bg-gradient-radial {
+  background-image: radial-gradient(var(--tw-gradient-stops));
+}
+
 /* Font families */
 .font-display {
   font-family: var(--font-playfair), Georgia, serif;
@@ -1032,6 +1037,77 @@ body {
 
 .add-to-cart-pulse {
   animation: add-to-cart-pulse 200ms ease-out;
+}
+
+/* ===== LANDING PAGE ANIMATIONS ===== */
+
+/* Landing page staggered entrance */
+@keyframes landing-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.landing-logo {
+  animation: landing-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 100ms;
+  opacity: 0;
+}
+
+.landing-headline {
+  animation: landing-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 250ms;
+  opacity: 0;
+}
+
+.landing-subtext {
+  animation: landing-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 400ms;
+  opacity: 0;
+}
+
+.landing-benefit {
+  animation: landing-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 550ms;
+  opacity: 0;
+}
+
+.landing-cta {
+  animation: landing-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 700ms;
+  opacity: 0;
+}
+
+.landing-helper {
+  animation: landing-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 850ms;
+  opacity: 0;
+}
+
+/* Soft ambient pulse for glow elements */
+@keyframes ambient-pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.landing-glow {
+  animation: ambient-pulse 8s ease-in-out infinite;
+}
+
+.landing-glow-delayed {
+  animation: ambient-pulse 10s ease-in-out infinite;
+  animation-delay: 2s;
 }
 
 /* ===== SKIN TEST EXPERIENCE ===== */

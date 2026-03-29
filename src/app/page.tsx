@@ -1,215 +1,103 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { influencers, products, collections } from "@/data/mock";
-import SectionHeader from "@/components/ui/SectionHeader";
-import InfluencerCard from "@/components/ui/InfluencerCard";
-import ProductCard from "@/components/ui/ProductCard";
-import CollectionCard from "@/components/ui/CollectionCard";
-import CTABanner from "@/components/ui/CTABanner";
-import ReviewCard from "@/components/ui/ReviewCard";
 import SkinTest from "@/components/ui/SkinTest";
 
 export default function Home() {
   const [isSkinTestOpen, setIsSkinTestOpen] = useState(false);
-  const featuredInfluencers = influencers.slice(0, 3);
-  const trendingProducts = products.slice(0, 4);
 
   return (
-    <div className="min-h-screen">
-      {/* Hero */}
-      <section className="relative overflow-hidden hero-gradient-mesh">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#3d7a5f]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32">
-          <div className="max-w-2xl">
-            <h1 className="text-h1 text-[#1a1a1a]">
-              <span className="hero-headline-1 inline-block">Discover Real</span>{" "}
-              <span className="hero-headline-2 inline-block text-[#3d7a5f]">
-                K-Beauty
-              </span>
-              <br />
-              <span className="hero-headline-3 inline-block">Through Creators</span>
-            </h1>
-            <p className="mt-6 text-lg text-[#6b6b6b] max-w-lg leading-relaxed hero-headline-3">
-              Shop curated beauty products recommended by influencers living in Korea. Real reviews, real routines, real results.
-            </p>
-            {/* Floating badge */}
-            <div className="hero-badge mt-6">
-              <span className="inline-flex items-center gap-2 bg-[#e8f4ee] text-[#3d7a5f] px-4 py-2 rounded-full text-[13px] font-medium">
-                🌿 100K+ beauty lovers worldwide
-              </span>
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Background with subtle gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#f8faf9] via-[#f0f7f3] to-[#e8f4ee]" />
+
+      {/* Soft ambient glow effects */}
+      <div className="landing-glow absolute top-[-10%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,_rgba(61,122,95,0.06)_0%,_transparent_70%)] rounded-full blur-3xl pointer-events-none" />
+      <div className="landing-glow-delayed absolute bottom-[10%] left-[15%] w-[400px] h-[400px] bg-[radial-gradient(circle,_rgba(106,170,142,0.08)_0%,_transparent_70%)] rounded-full blur-2xl pointer-events-none" />
+      <div className="landing-glow absolute top-[40%] right-[10%] w-[300px] h-[300px] bg-[radial-gradient(circle,_rgba(61,122,95,0.05)_0%,_transparent_70%)] rounded-full blur-2xl pointer-events-none" />
+
+      {/* Main Content */}
+      <div className="relative z-10 min-h-screen flex flex-col">
+
+        {/* Hero Section */}
+        <section className="flex-1 flex flex-col items-center justify-center px-6 py-12 sm:py-16">
+          <div className="w-full max-w-md mx-auto flex flex-col items-center text-center">
+
+            {/* Brand Logo - Large & Prominent */}
+            <div className="landing-logo mb-12 sm:mb-14 md:mb-16">
+              <h1 className="font-display text-[3.5rem] sm:text-6xl md:text-7xl font-bold tracking-tight leading-none">
+                <span className="bg-gradient-to-r from-[#2d5a47] via-[#3d7a5f] to-[#4a8a6f] bg-clip-text text-transparent">
+                  KFIT
+                </span>
+              </h1>
+              <div className="mt-3 h-[2px] w-12 mx-auto bg-gradient-to-r from-transparent via-[#3d7a5f]/50 to-transparent" />
             </div>
-            <div className="flex flex-wrap gap-4 mt-8 hero-headline-3">
-              <Link
-                href="/discover"
-                className="hero-cta-primary bg-[#3d7a5f] text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg shadow-[#3d7a5f]/25"
-              >
-                Explore Creators
-              </Link>
+
+            {/* Main Headline */}
+            <div className="landing-headline mb-5 sm:mb-6">
+              <h2 className="text-[1.5rem] sm:text-[1.75rem] md:text-[2rem] font-bold text-[#1a1a1a] leading-[1.35] tracking-[-0.01em]">
+                간단한 질문으로
+              </h2>
+              <h2 className="text-[1.5rem] sm:text-[1.75rem] md:text-[2rem] font-bold leading-[1.35] tracking-[-0.01em] mt-0.5">
+                <span className="bg-gradient-to-r from-[#2d6a4f] to-[#3d7a5f] bg-clip-text text-transparent">
+                  정확한 내 피부 타입
+                </span>
+                <span className="text-[#1a1a1a]">을 확인하고</span>
+              </h2>
+            </div>
+
+            {/* Sub Copy */}
+            <p className="landing-subtext text-[0.95rem] sm:text-base text-[#666] mb-8 sm:mb-10 leading-relaxed max-w-[280px] sm:max-w-xs">
+              나에게 꼭 맞는 K-뷰티 제품을 추천 받아보세요
+            </p>
+
+            {/* Benefit Box */}
+            <div className="landing-benefit mb-8 sm:mb-10 w-full max-w-[280px] sm:max-w-[300px]">
+              <div className="bg-white/80 backdrop-blur-md rounded-2xl px-5 py-4 shadow-[0_4px_24px_rgba(61,122,95,0.08)] border border-[#3d7a5f]/8">
+                <div className="flex items-start gap-3">
+                  <span className="text-lg flex-shrink-0 mt-0.5">🎁</span>
+                  <div className="text-left">
+                    <p className="text-[#3d7a5f] font-semibold text-[0.8rem] sm:text-sm leading-relaxed">
+                      참가한 분들 중 10분에게
+                    </p>
+                    <p className="text-[#333] font-medium text-[0.8rem] sm:text-sm leading-relaxed">
+                      딱 맞는 제품을 무료로 보내드립니다
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <div className="landing-cta">
               <button
                 onClick={() => setIsSkinTestOpen(true)}
-                className="hero-cta-secondary bg-white text-[#1a1a1a] px-8 py-4 rounded-full font-semibold text-lg border border-[#e8e4de]"
+                className="group relative bg-gradient-to-r from-[#3d7a5f] to-[#4a8a6f] text-white px-10 sm:px-12 py-4 sm:py-[1.1rem] rounded-full font-bold text-base sm:text-lg shadow-[0_8px_32px_rgba(61,122,95,0.35)] hover:shadow-[0_14px_44px_rgba(61,122,95,0.4)] hover:-translate-y-1 active:translate-y-0 active:shadow-[0_4px_20px_rgba(61,122,95,0.3)] transition-all duration-300 ease-out overflow-hidden"
               >
-                Find Your Skin Match
+                <span className="relative z-10">테스트 시작하기</span>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#2d6a4f] to-[#3d7a5f] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </button>
             </div>
+
+            {/* Helper Text */}
+            <p className="landing-helper mt-4 sm:mt-5 text-[0.8rem] sm:text-sm text-[#999] tracking-wide">
+              약 30초 소요 · 6개 질문
+            </p>
+
           </div>
-          {/* Floating influencer avatars */}
-          <div className="hidden lg:flex absolute right-12 top-1/2 -translate-y-1/2 flex-col gap-4">
-            {featuredInfluencers.map((inf, i) => (
-              <Link
-                key={inf.id}
-                href={`/influencer/${inf.id}`}
-                className={`flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-2xl p-3 pr-6 shadow-lg hover:shadow-xl transition-all hover:-translate-x-2 hero-card-${i + 1}`}
-              >
-                <div className="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-[#3d7a5f]/10">
-                  <Image src={inf.profileImage} alt={inf.name} fill className="object-cover" sizes="48px" />
-                </div>
-                <div>
-                  <p className="font-semibold text-sm text-[#1a1a1a]">{inf.name} {inf.flag}</p>
-                  <p className="text-xs text-[#6b6b6b]">{inf.followers} followers</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Featured Influencers */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <SectionHeader
-          title="Featured Creators"
-          subtitle="Meet the tastemakers shaping global K-beauty"
-          href="/discover"
-        />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuredInfluencers.map((inf, index) => (
-            <InfluencerCard key={inf.id} influencer={inf} variant="featured" animationDelay={index * 100} />
-          ))}
-        </div>
-      </section>
+        {/* Minimal Footer */}
+        <footer className="py-5 sm:py-6 text-center">
+          <span className="font-display text-xs sm:text-sm font-semibold text-[#3d7a5f]/50 tracking-wider">
+            KFIT
+          </span>
+          <p className="text-[0.65rem] sm:text-xs text-[#aaa] mt-1">
+            © 2025 KFIT. All rights reserved.
+          </p>
+        </footer>
 
-      {/* Trending Picks */}
-      <section className="bg-[#f9f9f7] py-12 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title="Trending Picks"
-            subtitle="Most loved products by our creators this week"
-            href="/discover"
-          />
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {trendingProducts.map((product, index) => (
-              <ProductCard key={product.id} product={product} showInfluencer index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Shop by Creator */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <SectionHeader
-          title="Shop by Creator"
-          subtitle="Find your beauty soulmate"
-          href="/discover"
-        />
-        <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible">
-          {influencers.map((inf, index) => (
-            <div key={inf.id} className="flex-shrink-0 w-72 sm:w-auto">
-              <InfluencerCard influencer={inf} animationDelay={index * 100} />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Curated Collections */}
-      <section className="bg-[#f9f9f7] py-12 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title="Curated Collections"
-            subtitle="Handpicked sets for every skin story"
-          />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {collections.slice(0, 3).map((col) => (
-              <CollectionCard key={col.id} collection={col} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Social Proof */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <SectionHeader title="Loved Worldwide" subtitle="What our community says" />
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {[
-            { quote: "I finally found products that work for my skin, all thanks to Hana's recommendations!", name: "Jessica M.", country: "USA", flag: "🇺🇸", countryCode: "US" },
-            { quote: "Shopping through creators makes K-beauty so much easier. No more guesswork!", name: "Yuki T.", country: "Japan", flag: "🇯🇵", countryCode: "JP" },
-            { quote: "The curation is amazing. Every product I've bought has been a winner.", name: "Maria L.", country: "Brazil", flag: "🇧🇷", countryCode: "BR" },
-          ].map((testimonial, index) => (
-            <ReviewCard
-              key={testimonial.name}
-              quote={testimonial.quote}
-              name={testimonial.name}
-              country={testimonial.country}
-              flag={testimonial.flag}
-              countryCode={testimonial.countryCode}
-              delay={index * 150}
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <CTABanner
-          title="Become a Creator"
-          subtitle="Share your K-beauty discoveries and earn by curating your own beauty store"
-          buttonText="Apply Now"
-          href="/signup"
-        />
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-[#1a1a1a] text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="col-span-2 md:col-span-1">
-              <span className="font-display text-xl font-bold bg-gradient-to-r from-[#3d7a5f] to-[#6aaa8e] bg-clip-text text-transparent">
-                LINKBEAUTY
-              </span>
-              <p className="text-white/60 text-sm mt-3 leading-relaxed">Discover real K-beauty through the creators you trust.</p>
-            </div>
-            <div>
-              <h4 className="text-label text-white/80 mb-3">Discover</h4>
-              <ul className="space-y-2 text-sm text-white/60">
-                <li><Link href="/discover" className="hover:text-white transition-colors">All Creators</Link></li>
-                <li><Link href="/discover" className="hover:text-white transition-colors">Collections</Link></li>
-                <li><Link href="/discover" className="hover:text-white transition-colors">New Arrivals</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-label text-white/80 mb-3">Company</h4>
-              <ul className="space-y-2 text-sm text-white/60">
-                <li><Link href="#" className="hover:text-white transition-colors">About Us</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Careers</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-label text-white/80 mb-3">Support</h4>
-              <ul className="space-y-2 text-sm text-white/60">
-                <li><Link href="#" className="hover:text-white transition-colors">FAQ</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Shipping</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Returns</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-white/10 mt-10 pt-8 text-center text-sm text-white/40">
-            &copy; 2026 LINKBEAUTY. All rights reserved.
-          </div>
-        </div>
-      </footer>
+      </div>
 
       {/* Skin Test Modal */}
       <SkinTest isOpen={isSkinTestOpen} onClose={() => setIsSkinTestOpen(false)} />

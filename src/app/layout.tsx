@@ -16,8 +16,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "LINKBEAUTY — Discover K-Beauty Through Creators",
-  description: "Shop curated K-beauty products recommended by your favorite influencers living in Korea.",
+  title: "KFIT — 나에게 맞는 K-뷰티 찾기",
+  description: "간단한 피부 테스트로 나에게 딱 맞는 K-뷰티 제품을 추천 받아보세요.",
 };
 
 export default function RootLayout({
