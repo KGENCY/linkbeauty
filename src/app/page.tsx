@@ -51,23 +51,6 @@ export default function Home() {
               나에게 꼭 맞는 K-뷰티 제품을 추천 받아보세요
             </p>
 
-            {/* Benefit Box */}
-            <div className="landing-benefit mb-8 sm:mb-10 w-full max-w-[280px] sm:max-w-[300px]">
-              <div className="bg-white/80 backdrop-blur-md rounded-2xl px-5 py-4 shadow-[0_4px_24px_rgba(61,122,95,0.08)] border border-[#3d7a5f]/8">
-                <div className="flex items-start gap-3">
-                  <span className="text-lg flex-shrink-0 mt-0.5">🎁</span>
-                  <div className="text-left">
-                    <p className="text-[#3d7a5f] font-semibold text-[0.8rem] sm:text-sm leading-relaxed">
-                      참가한 분들 중 10분에게
-                    </p>
-                    <p className="text-[#333] font-medium text-[0.8rem] sm:text-sm leading-relaxed">
-                      딱 맞는 제품을 무료로 보내드립니다
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             {/* CTA Button */}
             <div className="landing-cta">
               <button

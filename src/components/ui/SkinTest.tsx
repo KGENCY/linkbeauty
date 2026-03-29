@@ -63,6 +63,7 @@ const countries: Country[] = [
   { code: "CN", name: "중국", flag: "🇨🇳", currency: "CNY", rate: 185, symbol: "CN¥", format: (n) => `CN¥${n.toFixed(0)}` },
   { code: "VN", name: "베트남", flag: "🇻🇳", currency: "VND", rate: 0.054, symbol: "₫", format: (n) => `₫${n.toLocaleString()}` },
   { code: "TH", name: "태국", flag: "🇹🇭", currency: "THB", rate: 38, symbol: "฿", format: (n) => `฿${n.toFixed(0)}` },
+  { code: "UZ", name: "우즈베키스탄", flag: "🇺🇿", currency: "UZS", rate: 0.105, symbol: "сўм", format: (n) => `${n.toLocaleString()} сўм` },
   { code: "PH", name: "필리핀", flag: "🇵🇭", currency: "PHP", rate: 24, symbol: "₱", format: (n) => `₱${n.toFixed(0)}` },
   { code: "ID", name: "인도네시아", flag: "🇮🇩", currency: "IDR", rate: 0.085, symbol: "Rp", format: (n) => `Rp${n.toLocaleString()}` },
   { code: "MY", name: "말레이시아", flag: "🇲🇾", currency: "MYR", rate: 285, symbol: "RM", format: (n) => `RM${n.toFixed(2)}` },
@@ -458,6 +459,7 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<ProductCategory>("serum");
   const [instagramId, setInstagramId] = useState("");
+  const [likedProducts, setLikedProducts] = useState<Set<string>>(new Set());
   const [selectedNationality, setSelectedNationality] = useState<Country | null>(null);
   const [countrySearch, setCountrySearch] = useState("");
 
@@ -489,6 +491,7 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
     setSelectedAnswer(null);
     setSelectedCategory("serum");
     setInstagramId("");
+    setLikedProducts(new Set());
     setSelectedNationality(null);
     setCountrySearch("");
   }, []);
@@ -592,6 +595,16 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
         setStep("loading");
       }
     }, 300);
+  };
+
+  // 좋아요 토글
+  const toggleLike = (productKey: string) => {
+    setLikedProducts((prev) => {
+      const next = new Set(prev);
+      if (next.has(productKey)) next.delete(productKey);
+      else next.add(productKey);
+      return next;
+    });
   };
 
   // 현재 결과에 해당하는 제품 가져오기
@@ -850,37 +863,24 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
 
         {/* ==================== 결과 화면 ==================== */}
         {step === "result" && result && (
-          <div className="min-h-screen py-16 px-4">
+          <div className="min-h-screen py-12 px-4">
             <div className="max-w-lg mx-auto skin-test-results-enter">
-              {/* 상단 배지 */}
-              <div className="text-center mb-6">
-                <div className="inline-flex items-center gap-2 bg-[#e8f4ee] text-[#3d7a5f] px-4 py-2 rounded-full text-sm font-medium">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  분석 완료
-                </div>
-              </div>
-
-              {/* 제목 */}
-              <h1 className="text-lg text-[#6b6b6b] text-center mb-2">당신의 피부 프로필</h1>
-
-              {/* 결과 카드 */}
+              {/* 피부 타입 결과 카드 */}
               <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-lg border border-[#e8e4de] mb-6">
-                <div className="text-center mb-6">
+                <div className="text-center mb-5">
                   <h2 className="text-2xl sm:text-3xl font-display font-bold text-[#1a1a1a] mb-2">
                     {result.name}
                   </h2>
-                  <div className="w-16 h-1 bg-gradient-to-r from-[#3d7a5f] to-[#6aaa8e] rounded-full mx-auto" />
+                  <div className="w-12 h-1 bg-gradient-to-r from-[#3d7a5f] to-[#6aaa8e] rounded-full mx-auto" />
                 </div>
 
-                <p className="text-[#4a4a4a] leading-relaxed whitespace-pre-line text-center mb-6">
+                <p className="text-[#4a4a4a] leading-relaxed whitespace-pre-line text-center mb-5 text-sm">
                   {result.description}
                 </p>
 
-                <div className="border-t border-[#e8e4de] pt-6">
+                <div className="border-t border-[#e8e4de] pt-5">
                   <h3 className="text-sm text-[#3d7a5f] font-semibold mb-3 text-center">
-                    주의해야 할 점
+                    주의할 점
                   </h3>
                   <ul className="space-y-2">
                     {result.cautions.map((caution, index) => (
@@ -902,9 +902,6 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
                     <h2 className="text-lg font-semibold text-[#1a1a1a] mb-1">
                       추천 제품
                     </h2>
-                    <p className="text-sm text-[#6b6b6b]">
-                      당신의 피부 타입에 맞는 제품이에요
-                    </p>
                     {selectedNationality && selectedNationality.code !== "KR" && (
                       <p className="text-xs text-[#3d7a5f] mt-1">
                         {selectedNationality.flag} {selectedNationality.name} 기준 가격
@@ -913,12 +910,12 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
                   </div>
 
                   {/* 카테고리 탭 */}
-                  <div className="flex gap-2 mb-4 bg-[#f0f7f3] p-1 rounded-xl">
+                  <div className="flex gap-2 mb-5 bg-[#f0f7f3] p-1 rounded-xl">
                     {(["serum", "sunscreen", "mask"] as ProductCategory[]).map((category) => (
                       <button
                         key={category}
                         onClick={() => setSelectedCategory(category)}
-                        className={`flex-1 py-2 px-3 rounded-lg font-medium text-sm transition-all duration-300 ${
+                        className={`flex-1 py-2.5 px-3 rounded-lg font-medium text-sm transition-all duration-300 ${
                           selectedCategory === category
                             ? "bg-white text-[#3d7a5f] shadow-sm"
                             : "text-[#6b6b6b] hover:text-[#3d7a5f]"
@@ -929,55 +926,79 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
                     ))}
                   </div>
 
-                  {/* 제품 카드 */}
-                  <div className="space-y-3">
-                    {currentProducts[selectedCategory].map((product, index) => (
+                  {/* 제품 카드 - 탭별 1개씩 크게 */}
+                  {currentProducts[selectedCategory].map((product, index) => {
+                    const productKey = `${selectedCategory}-${index}`;
+                    const isLiked = likedProducts.has(productKey);
+                    return (
                       <div
-                        key={`${selectedCategory}-${index}`}
-                        className="bg-white rounded-2xl p-4 border border-[#e8e4de] shadow-sm"
+                        key={productKey}
+                        className="bg-white rounded-3xl overflow-hidden border border-[#e8e4de] shadow-sm"
                       >
-                        <div className="flex gap-4">
-                          <div className="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-[#f0f7f3] to-[#e8f4ee] overflow-hidden relative">
-                            {product.image ? (
-                              <Image
-                                src={product.image}
-                                alt={product.name}
-                                fill
-                                className="object-contain p-1"
-                                sizes="64px"
-                              />
-                            ) : (
-                              <div className="w-full h-full flex items-center justify-center">
-                                <svg className="w-6 h-6 text-[#3d7a5f]/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                                </svg>
-                              </div>
-                            )}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <h3 className="font-semibold text-[#1a1a1a] text-sm mb-1">
-                              {product.name}
-                            </h3>
-                            <p className="text-xs text-[#6b6b6b] mb-2">
-                              {product.desc}
-                            </p>
-                            <p className="text-sm font-bold text-[#3d7a5f]">
+                        {/* 큰 제품 이미지 */}
+                        <div className="relative w-full aspect-square bg-gradient-to-br from-[#f5f9f7] to-[#eaf5ef]">
+                          {product.image ? (
+                            <Image
+                              src={product.image}
+                              alt={product.name}
+                              fill
+                              className="object-contain p-8"
+                              sizes="(max-width: 512px) 100vw, 512px"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                              <svg className="w-16 h-16 text-[#3d7a5f]/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                              </svg>
+                            </div>
+                          )}
+                        </div>
+                        {/* 제품 정보 */}
+                        <div className="p-5">
+                          <h3 className="text-lg font-bold text-[#1a1a1a] mb-2">
+                            {product.name}
+                          </h3>
+                          <p className="text-sm text-[#4a4a4a] mb-3 leading-relaxed">
+                            {result.name} 피부에 {product.desc} 효과가 필요해요.
+                          </p>
+                          <div className="flex items-center justify-between">
+                            <p className="text-xl font-bold text-[#1a1a1a]">
                               {convertPrice(product.priceKRW)}
                             </p>
+                            {/* 하트 버튼 */}
+                            <button
+                              onClick={() => toggleLike(productKey)}
+                              className={`flex items-center gap-2 px-5 py-2.5 rounded-full border-2 transition-all active:scale-95 ${
+                                isLiked
+                                  ? "border-red-400 bg-red-50 text-red-500"
+                                  : "border-[#e8e4de] bg-white text-[#999] hover:border-red-300 hover:text-red-400"
+                              }`}
+                            >
+                              <svg
+                                className="w-5 h-5"
+                                viewBox="0 0 24 24"
+                                fill={isLiked ? "currentColor" : "none"}
+                                stroke="currentColor"
+                                strokeWidth={2}
+                              >
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                              </svg>
+                              <span className="text-sm font-semibold">{isLiked ? "찜했어요" : "찜하기"}</span>
+                            </button>
                           </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    );
+                  })}
                 </div>
               )}
 
-              {/* CTA 버튼 */}
+              {/* 하단 응모하기 버튼 */}
               <button
                 onClick={() => setStep("instagram")}
                 className="w-full bg-[#3d7a5f] text-white py-4 px-6 rounded-full font-semibold text-lg shadow-lg shadow-[#3d7a5f]/25 hover:bg-[#2d6a4f] transition-all hover:scale-[1.02] active:scale-[0.98]"
               >
-                무료 제품 받기
+                응모하기
               </button>
             </div>
           </div>
@@ -997,11 +1018,11 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
               </div>
 
               <h1 className="text-2xl sm:text-3xl font-display font-bold text-[#1a1a1a] mb-3">
-                무료 제품을 받아보세요
+                응모 완료까지 한 걸음!
               </h1>
 
               <p className="text-[#6b6b6b] mb-8">
-                당첨 시 연락드릴 인스타 아이디를 입력해주세요
+                연락받으실 인스타 아이디를 입력해주세요
               </p>
 
               {/* 입력 필드 */}
@@ -1058,11 +1079,11 @@ export default function SkinTest({ isOpen, onClose }: SkinTestProps) {
               </div>
 
               <h1 className="text-2xl sm:text-3xl font-display font-bold text-[#1a1a1a] mb-3">
-                참여가 완료되었습니다
+                응모가 완료되었습니다
               </h1>
 
               <p className="text-[#6b6b6b] mb-2">
-                당첨 시 입력하신 인스타로 연락드릴게요
+                입력하신 인스타로 연락드릴게요
               </p>
 
               <p className="text-sm text-[#3d7a5f] font-medium mb-10">
