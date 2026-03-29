@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { influencers, products, collections } from "@/data/mock";
@@ -9,8 +10,10 @@ import ProductCard from "@/components/ui/ProductCard";
 import CollectionCard from "@/components/ui/CollectionCard";
 import CTABanner from "@/components/ui/CTABanner";
 import ReviewCard from "@/components/ui/ReviewCard";
+import SkinTest from "@/components/ui/SkinTest";
 
 export default function Home() {
+  const [isSkinTestOpen, setIsSkinTestOpen] = useState(false);
   const featuredInfluencers = influencers.slice(0, 3);
   const trendingProducts = products.slice(0, 4);
 
@@ -45,12 +48,12 @@ export default function Home() {
               >
                 Explore Creators
               </Link>
-              <Link
-                href="/discover"
+              <button
+                onClick={() => setIsSkinTestOpen(true)}
                 className="hero-cta-secondary bg-white text-[#1a1a1a] px-8 py-4 rounded-full font-semibold text-lg border border-[#e8e4de]"
               >
-                How It Works
-              </Link>
+                Find Your Skin Match
+              </button>
             </div>
           </div>
           {/* Floating influencer avatars */}
@@ -207,6 +210,9 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Skin Test Modal */}
+      <SkinTest isOpen={isSkinTestOpen} onClose={() => setIsSkinTestOpen(false)} />
     </div>
   );
 }

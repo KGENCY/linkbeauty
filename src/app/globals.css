@@ -1034,6 +1034,304 @@ body {
   animation: add-to-cart-pulse 200ms ease-out;
 }
 
+/* ===== SKIN TEST EXPERIENCE ===== */
+
+/* Overlay entrance */
+.skin-test-overlay {
+  animation: skin-test-overlay-enter 400ms ease-out forwards;
+}
+
+@keyframes skin-test-overlay-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Background gradient animation */
+.skin-test-bg {
+  background-size: 200% 200%;
+  animation: skin-test-bg-shift 15s ease-in-out infinite;
+}
+
+@keyframes skin-test-bg-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Welcome entrance animation */
+.skin-test-welcome-enter {
+  animation: skin-test-welcome-enter 600ms ease-out forwards;
+}
+
+@keyframes skin-test-welcome-enter {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Question entrance animation */
+.skin-test-question-enter {
+  animation: skin-test-question-enter 500ms ease-out forwards;
+}
+
+@keyframes skin-test-question-enter {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Answer button entrance */
+.skin-test-answer {
+  opacity: 0;
+  animation: skin-test-answer-enter 400ms ease-out forwards;
+}
+
+@keyframes skin-test-answer-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading container */
+.skin-test-loading-container {
+  animation: skin-test-loading-container-enter 500ms ease-out forwards;
+}
+
+@keyframes skin-test-loading-container-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Loading text fade - smooth transition */
+.skin-test-loading-text {
+  animation: skin-test-text-fade 2000ms ease-in-out;
+}
+
+@keyframes skin-test-text-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  85% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating bubbles for loading */
+.skin-test-bubble-1 {
+  animation: skin-test-bubble-float-1 3s ease-in-out infinite;
+}
+
+.skin-test-bubble-2 {
+  animation: skin-test-bubble-float-2 2.5s ease-in-out infinite;
+  animation-delay: 0.3s;
+}
+
+.skin-test-bubble-3 {
+  animation: skin-test-bubble-float-3 3.5s ease-in-out infinite;
+  animation-delay: 0.6s;
+}
+
+.skin-test-bubble-4 {
+  animation: skin-test-bubble-float-4 2.8s ease-in-out infinite;
+  animation-delay: 0.9s;
+}
+
+@keyframes skin-test-bubble-float-1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-10px, -20px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes skin-test-bubble-float-2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(15px, -15px) scale(1.3);
+    opacity: 0.9;
+  }
+}
+
+@keyframes skin-test-bubble-float-3 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(-8px, -25px) scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes skin-test-bubble-float-4 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(12px, -18px) scale(1.15);
+    opacity: 0.85;
+  }
+}
+
+/* Sparkle animation */
+.skin-test-sparkle {
+  color: #6aaa8e;
+  font-size: 14px;
+  animation: skin-test-sparkle-twinkle 1.5s ease-in-out infinite;
+}
+
+@keyframes skin-test-sparkle-twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(180deg);
+  }
+}
+
+/* Results entrance animation */
+.skin-test-results-enter {
+  animation: skin-test-results-enter 700ms ease-out forwards;
+}
+
+@keyframes skin-test-results-enter {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Result card shimmer effect */
+.skin-test-results-enter > .bg-white:first-of-type {
+  position: relative;
+  overflow: hidden;
+}
+
+.skin-test-results-enter > .bg-white:first-of-type::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(61, 122, 95, 0.05), transparent);
+  animation: skin-test-card-shimmer 3s ease-in-out infinite;
+  animation-delay: 0.5s;
+  pointer-events: none;
+}
+
+@keyframes skin-test-card-shimmer {
+  0%, 100% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+}
+
+/* Products section entrance */
+.skin-test-products-enter {
+  animation: skin-test-products-enter 600ms ease-out forwards;
+  animation-delay: 200ms;
+  opacity: 0;
+}
+
+@keyframes skin-test-products-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Product card stagger animation */
+.skin-test-product-card {
+  animation: skin-test-product-card-enter 400ms ease-out forwards;
+  opacity: 0;
+}
+
+.skin-test-product-card:nth-child(1) {
+  animation-delay: 100ms;
+}
+
+.skin-test-product-card:nth-child(2) {
+  animation-delay: 200ms;
+}
+
+.skin-test-product-card:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+@keyframes skin-test-product-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Tab switching animation */
+.skin-test-products-enter button[class*="bg-white"] {
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
 /* 10. Reduced Motion - MUST BE LAST */
 @media (prefers-reduced-motion: reduce) {
   *,
