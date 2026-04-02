@@ -43,6 +43,17 @@ export interface CartItem {
   quantity: number;
 }
 
+export interface VideoRecommendation {
+  id: string;
+  productId: string;
+  influencerId: string;
+  videoUrl: string;
+  thumbnailUrl: string;
+  title: string;
+  duration: string;
+  views: string;
+}
+
 export interface Review {
   id: string;
   userName: string;
@@ -425,4 +436,55 @@ export function getRelatedProducts(productId: string): Product[] {
   return products
     .filter((p) => p.influencerId === product.influencerId && p.id !== productId)
     .slice(0, 4);
+}
+
+// Video recommendations: influencers reviewing products (including cross-recommendations)
+export const videoRecommendations: VideoRecommendation[] = [
+  // Hana's videos
+  { id: "v1", productId: "p1", influencerId: "hana-tokyo", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&h=450&fit=crop", title: "Glass Skin의 비밀! COSRX 글로우 세럼 리뷰", duration: "8:24", views: "124K" },
+  { id: "v2", productId: "p2", influencerId: "hana-tokyo", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&h=450&fit=crop", title: "쌀뜨물 클렌저로 하루 세안 루틴", duration: "6:12", views: "89K" },
+  { id: "v3", productId: "p3", influencerId: "hana-tokyo", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&h=450&fit=crop", title: "진짜 백탁 없는 선크림 찾았다!", duration: "5:45", views: "203K" },
+  // Emma's videos
+  { id: "v4", productId: "p4", influencerId: "emma-paris", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&h=450&fit=crop", title: "약사가 분석하는 비타민C 앰플 성분", duration: "12:30", views: "156K" },
+  { id: "v5", productId: "p5", influencerId: "emma-paris", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1570194065650-d99fb4a38691?w=800&h=450&fit=crop", title: "녹차 씨드 세럼, 과학적으로 효과 있을까?", duration: "9:15", views: "98K" },
+  { id: "v6", productId: "p6", influencerId: "emma-paris", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1598452963314-b09f397a5c48?w=800&h=450&fit=crop", title: "AHA/BHA 토너 올바른 사용법", duration: "7:40", views: "112K" },
+  // Sofia's videos
+  { id: "v7", productId: "p7", influencerId: "sofia-brazil", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=800&h=450&fit=crop", title: "하루종일 지속되는 립틴트 발색 테스트", duration: "10:22", views: "287K" },
+  { id: "v8", productId: "p8", influencerId: "sofia-brazil", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&h=450&fit=crop", title: "클리오 팔레트로 3가지 룩 만들기", duration: "14:05", views: "341K" },
+  // Mei Lin's videos
+  { id: "v9", productId: "p9", influencerId: "mei-shanghai", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=800&h=450&fit=crop", title: "설화수 자음생크림 한달 사용 후기", duration: "11:18", views: "178K" },
+  { id: "v10", productId: "p10", influencerId: "mei-shanghai", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=800&h=450&fit=crop", title: "레티날 vs 레티놀, 뭐가 다를까?", duration: "8:55", views: "134K" },
+  // Sarah's videos
+  { id: "v11", productId: "p11", influencerId: "sarah-usa", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&h=450&fit=crop", title: "20달러 이하 피부장벽 크림 최강자", duration: "7:30", views: "221K" },
+  { id: "v12", productId: "p12", influencerId: "sarah-usa", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=450&fit=crop", title: "쑥 마스크팩 10장 솔직 리뷰", duration: "6:48", views: "95K" },
+  // Anna's videos
+  { id: "v13", productId: "p13", influencerId: "anna-russia", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=450&fit=crop", title: "민감성 피부를 위한 시카밤 사용법", duration: "9:05", views: "145K" },
+  { id: "v14", productId: "p14", influencerId: "anna-russia", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&h=450&fit=crop", title: "알로에 젤 하나로 멀티 케어하기", duration: "5:30", views: "67K" },
+
+  // Cross-recommendations: other influencers reviewing same products
+  { id: "v15", productId: "p1", influencerId: "emma-paris", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&h=450&fit=crop", title: "약사가 본 COSRX 글로우 세럼 성분 분석", duration: "11:20", views: "98K" },
+  { id: "v16", productId: "p1", influencerId: "sarah-usa", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&h=450&fit=crop", title: "가성비 최고 세럼! 한달 사용 솔직 후기", duration: "7:15", views: "167K" },
+  { id: "v17", productId: "p1", influencerId: "anna-russia", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=450&fit=crop", title: "민감성 피부도 쓸 수 있는 세럼일까?", duration: "6:40", views: "54K" },
+  { id: "v18", productId: "p3", influencerId: "emma-paris", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1570194065650-d99fb4a38691?w=800&h=450&fit=crop", title: "센텔라 선크림 자외선 차단 테스트", duration: "8:30", views: "143K" },
+  { id: "v19", productId: "p3", influencerId: "sarah-usa", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&h=450&fit=crop", title: "$17 선크림이 이 정도라고?!", duration: "5:55", views: "189K" },
+  { id: "v20", productId: "p7", influencerId: "hana-tokyo", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&h=450&fit=crop", title: "롬앤 립틴트 전색상 발색 비교", duration: "9:45", views: "256K" },
+  { id: "v21", productId: "p7", influencerId: "mei-shanghai", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=800&h=450&fit=crop", title: "에디터 픽: 올해의 립 제품", duration: "6:20", views: "112K" },
+  { id: "v22", productId: "p9", influencerId: "emma-paris", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&h=450&fit=crop", title: "설화수 자음생크림 성분 깊이 분석", duration: "13:10", views: "87K" },
+  { id: "v23", productId: "p9", influencerId: "hana-tokyo", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&h=450&fit=crop", title: "럭셔리 크림 한달 사용, 진짜 달라졌을까?", duration: "10:05", views: "198K" },
+  { id: "v24", productId: "p11", influencerId: "anna-russia", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=450&fit=crop", title: "피부장벽 크림 민감성 피부 테스트", duration: "7:20", views: "76K" },
+  { id: "v25", productId: "p11", influencerId: "hana-tokyo", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&h=450&fit=crop", title: "건조한 겨울, 배리어 크림 필수!", duration: "6:10", views: "134K" },
+  { id: "v26", productId: "p13", influencerId: "sarah-usa", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&h=450&fit=crop", title: "닥터자르트 시카밤 vs 다른 시카 제품", duration: "8:45", views: "156K" },
+  { id: "v27", productId: "p13", influencerId: "emma-paris", videoUrl: "", thumbnailUrl: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&h=450&fit=crop", title: "시카 성분의 과학적 효능 총정리", duration: "10:30", views: "91K" },
+];
+
+export function getVideoForProduct(productId: string, influencerId: string): VideoRecommendation | undefined {
+  return videoRecommendations.find((v) => v.productId === productId && v.influencerId === influencerId);
+}
+
+export function getVideosByInfluencer(influencerId: string): VideoRecommendation[] {
+  return videoRecommendations.filter((v) => v.influencerId === influencerId);
+}
+
+export function getOtherCelebVideosForProduct(productId: string, excludeInfluencerId: string): VideoRecommendation[] {
+  return videoRecommendations.filter((v) => v.productId === productId && v.influencerId !== excludeInfluencerId);
 }
